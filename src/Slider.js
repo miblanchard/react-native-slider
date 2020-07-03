@@ -488,7 +488,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             minimumTrackTintColor,
             minimumValue,
             renderAboveThumbComponent,
-            renderTrackMark,
+            renderTrackMarkComponent,
             renderThumbComponent,
             thumbImage,
             thumbStyle,
@@ -603,7 +603,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             minimumTrackStyle,
                         ]}
                     />
-                    {renderTrackMark &&
+                    {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues.map((value, i) => (
                             <Animated.View
                                 key={`track-mark-${i}`}
@@ -618,7 +618,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                     },
                                 ]}
                             >
-                                {renderTrackMark()}
+                                {renderTrackMarkComponent(i)}
                             </Animated.View>
                         ))}
                     {interpolatedThumbValues.map((value, i) => (

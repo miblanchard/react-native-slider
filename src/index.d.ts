@@ -70,9 +70,9 @@ declare module '@miblanchard/react-native-slider' {
     */
     renderThumbComponent?: () => ReactNode;
     /**
-    * Function which returns a custom Component of your liking to be rendered on top of the slider truck at the values provided by `trackMarks` property.
+    * Function which returns a custom Component of your liking to be rendered on top of the slider truck at the values provided by `trackMarks` property. It accepts an index of a mark from `trackMarks` array the method is being executed for.
     */
-    renderTrackMark?: (index: number) => ReactNode;
+    renderTrackMarkComponent?: (index: number) => ReactNode;
     /**
      * Step value of the slider. The value should be between 0 and maximumValue - minimumValue)
      */

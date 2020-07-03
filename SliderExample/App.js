@@ -34,10 +34,6 @@ const renderAboveThumbComponent = () => {
     return <View style={aboveThumbStyles.container} />;
 };
 
-const renderTrackMarkComponent = () => {
-    return <View style={trackMarkStyles.container} />;
-};
-
 const SliderContainer = (props: {
     caption: string,
     children: React.Node,
@@ -49,16 +45,26 @@ const SliderContainer = (props: {
         !!sliderValue ? sliderValue : DEFAULT_VALUE
     );
 
-    const trackMarkValues =
-        trackMarks && trackMarks.filter(mark => mark > Math.max(value));
+    let renderTrackMarkComponent;
+    if (trackMarks?.length) {
+        renderTrackMarkComponent = (index: number) => {
+            const currentMarkValue = trackMarks[index];
+            const style =
+                currentMarkValue > Math.max(value)
+                    ? trackMarkStyles.activeMark
+                    : trackMarkStyles.inactiveMark;
+            return <View style={style} />;
+        };
+    }
 
     const renderChildren = () => {
         return React.Children.map(props.children, child => {
             if (!!child && child.type === Slider) {
                 return React.cloneElement(child, {
-                    trackMarks: trackMarkValues,
-                    value,
                     onValueChange: setValue,
+                    renderTrackMarkComponent,
+                    trackMarks,
+                    value,
                 });
             }
             return child;
@@ -87,12 +93,7 @@ const App = () => (
                 sliderValue={[1]}
                 trackMarks={[3, 7, 11]}
             >
-                <Slider
-                    maximumValue={17}
-                    minimumValue={0}
-                    renderTrackMark={renderTrackMarkComponent}
-                    step={1}
-                />
+                <Slider maximumValue={17} minimumValue={0} step={1} />
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom thumb component">
                 <Slider

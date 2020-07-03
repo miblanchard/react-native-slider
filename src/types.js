@@ -33,7 +33,7 @@ export type SliderProps = {
     onValueChange: (value: number | Array<number>) => void,
     renderAboveThumbComponent?: (index: number) => React.Node,
     renderThumbComponent: () => React.Node,
-    renderTrackMark?: () => React.Node,
+    renderTrackMarkComponent?: (index: number) => React.Node,
     step: number,
     thumbImage: string | number | Array<string | number>,
     thumbStyle: ViewStyleProp,
