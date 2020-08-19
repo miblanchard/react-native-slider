@@ -57,7 +57,7 @@
         "metro-react-native-babel-preset": "0.55.0",
         "prettier": "1.18.2",
         "react": "16.8.3",
-        "react-native": "0.59.9",
+        "react-native": "0.59.10",
         "rimraf": "3.0.2"
     }
 }
