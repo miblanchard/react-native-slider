@@ -7,6 +7,9 @@ const GREEN = "green";
 const TRANSPARENT = "transparent";
 
 export const defaultStyles = StyleSheet.create({
+    aboveThumbComponentsContainer: {
+        flexDirection: "row",
+    },
     container: {
         height: 40,
         justifyContent: "center",
