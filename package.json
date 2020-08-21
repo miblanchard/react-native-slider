@@ -71,7 +71,7 @@
         "eslint-plugin-react-native-a11y": "2.0.0",
         "eslint-plugin-unicorn": "20.1.0",
         "flow-bin": "0.108.0",
-        "flow-typed": "2.6.1",
+        "flow-typed": "3.2.1",
         "metro-react-native-babel-preset": "0.59.0",
         "prettier": "2.0.5",
         "react": "16.13.1",
