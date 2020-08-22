@@ -23,16 +23,11 @@ or
 npm i --save @miblanchard/react-native-slider
 ```
 
-**Note:** I try to maintain backward compatibility of this component with previous versions of React Native, but due to the nature of the platform, and the existence of breaking changes between releases, it is possible that you need to use a specific version of this component to support the exact version of React Native you are using. See the following table:
+Version 1.x.x only supports React Native >= 0.59.0
 
 | React Native version(s) | Supporting react-native-slider version(s) |
 | ----------------------- | ----------------------------------------- |
-| <0.25.0                 | <0.7.0                                    |
-| v0.25.x                 | v0.7.x                                    |
-| v0.26.0+                | v0.8.x                                    |
-| v0.43.0+                | v0.10.x                                   |
-| v0.44.0+                | v0.11.x                                   |
-| v0.59.0+                | v1.0.x                                    |
+| v0.59.0+                | v1.x.x                                    |
 
 ## Usage
 
