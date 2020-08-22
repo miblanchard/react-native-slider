@@ -5,24 +5,20 @@
 [![npm licence](http://img.shields.io/npm/l/@miblanchard/react-native-slider.svg?style=flat-square)](https://npmjs.org/package/@miblanchard/react-native-slider "View this project on npm")
 [![Platform](https://img.shields.io/badge/platform-ios--android--web-red)](https://npmjs.org/package/@miblanchard/react-native-slider "View this project on npm")
 
-A pure JavaScript `<Slider>` component for react-native. This is still very much a work
-in progress, ideas and contributions are very welcome.
+A pure JavaScript version of the `<Slider>` component for react-native and react-native-web.  This can be a direct replacement for the Slider component from react-native/@react-native-community.  Ideas and contributions are very welcome.
 
-<img src="https://raw.githubusercontent.com/miblanchard/react-native-slider/master/Screenshots/basic@2x.png" width="375">
-<img src="https://raw.githubusercontent.com/miblanchard/react-native-slider/master/Screenshots/basic_android_xxhdpi.png" width="360">
-
-It is a drop-in replacement for [Slider](http://facebook.github.io/react-native/docs/slider.html).
+<img src="https://raw.githubusercontent.com/miblanchard/react-native-slider/master/Screenshots/example.png" width="375">
 
 ## Install
 
 ```shell
-npm i --save @miblanchard/react-native-slider
+yarn add @miblanchard/react-native-slider
 ```
 
 or
 
 ```shell
-yarn add @miblanchard/react-native-slider
+npm i --save @miblanchard/react-native-slider
 ```
 
 **Note:** I try to maintain backward compatibility of this component with previous versions of React Native, but due to the nature of the platform, and the existence of breaking changes between releases, it is possible that you need to use a specific version of this component to support the exact version of React Native you are using. See the following table:
