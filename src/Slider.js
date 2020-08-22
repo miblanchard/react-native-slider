@@ -8,10 +8,8 @@ import {
     Easing,
     I18nManager,
 } from "react-native";
-
 // styles
-import {defaultStyles} from "./styles";
-
+import {defaultStyles as styles} from "./styles";
 // types
 import type {GestureState, PressEvent, ViewLayoutEvent} from "react-native";
 import type {ChangeEvent, SliderProps, SliderState} from "./types";
@@ -27,7 +25,7 @@ function Rect(x: number, y: number, width: number, height: number) {
             nativeY >= this.y &&
             nativeX <= this.x + this.width &&
             nativeY <= this.y + this.height,
-        trackDistanceToPoint: nativeX => {
+        trackDistanceToPoint: (nativeX) => {
             if (nativeX < this.x) return this.x - nativeX;
             if (nativeX > this.x + this.width)
                 return nativeX - (this.x + this.width);
@@ -160,7 +158,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     }
 
     _getRawValues(values: Animated.Value) {
-        return values.map(value => value.__getValue());
+        return values.map((value) => value.__getValue());
     }
 
     _handleStartShouldSetPanResponder = (
@@ -174,7 +172,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         return false;
     }
 
-    _handlePanResponderGrant = (e: PressEvent, gestureState: GestureState) => {
+    _handlePanResponderGrant = (e: PressEvent) => {
         const {thumbSize} = this.state;
         const {nativeEvent} = e;
         this._previousLeft = this.props.trackClickable
@@ -330,15 +328,12 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
 
     _setCurrentValueAnimated = (value: number, thumbIndex: number = 0) => {
         const {animationType} = this.props;
-        const animationConfig = Object.assign(
-            {},
-            DEFAULT_ANIMATION_CONFIGS[animationType],
-            this.props.animationConfig,
-            {
-                toValue: value,
-                useNativeDriver: false,
-            }
-        );
+        const animationConfig = {
+            ...DEFAULT_ANIMATION_CONFIGS[animationType],
+            ...this.props.animationConfig,
+            toValue: value,
+            useNativeDriver: false,
+        };
 
         Animated[animationType](
             this.state.values[thumbIndex],
@@ -456,7 +451,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             <Animated.View
                 key={`debug-thumb-${index}`}
                 pointerEvents="none"
-                style={[defaultStyles.debugThumbTouchArea, positionStyle]}
+                style={[styles.debugThumbTouchArea, positionStyle]}
             />
         );
     };
@@ -504,7 +499,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             trackMarksValues,
             values,
         } = this.state;
-        const interpolatedThumbValues = values.map(v =>
+        const interpolatedThumbValues = values.map((v) =>
             v.interpolate({
                 inputRange: [minimumValue, maximumValue],
                 outputRange: I18nManager.isRTL
@@ -513,7 +508,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             })
         );
 
-        const interpolatedTrackMarksValues = trackMarksValues.map(v =>
+        const interpolatedTrackMarksValues = trackMarksValues.map((v) =>
             v.interpolate({
                 inputRange: [minimumValue, maximumValue],
                 outputRange: I18nManager.isRTL
@@ -560,12 +555,14 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         return (
             <>
                 {renderAboveThumbComponent && (
-                    <View style={{flexDirection: "row"}}>
+                    <View style={styles.aboveThumbComponentsContainer}>
                         {interpolatedThumbValues.map((value, i) => (
                             <Animated.View
+                                // eslint-disable-next-line react/no-array-index-key
                                 key={`slider-above-thumb-${i}`}
                                 style={[
-                                    defaultStyles.renderThumbComponent,
+                                    styles.renderThumbComponent,
+                                    // eslint-disable-next-line react-native/no-inline-styles
                                     {
                                         bottom: 0,
                                         transform: [
@@ -583,13 +580,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 )}
                 <View
                     {...other}
-                    style={[defaultStyles.container, containerStyle]}
+                    style={[styles.container, containerStyle]}
                     onLayout={this._measureContainer}
                 >
                     <View
                         renderToHardwareTextureAndroid
                         style={[
-                            defaultStyles.track,
+                            styles.track,
                             {backgroundColor: maximumTrackTintColor},
                             trackStyle,
                         ]}
@@ -597,18 +594,15 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                     />
                     <Animated.View
                         renderToHardwareTextureAndroid
-                        style={[
-                            defaultStyles.track,
-                            trackStyle,
-                            minimumTrackStyle,
-                        ]}
+                        style={[styles.track, trackStyle, minimumTrackStyle]}
                     />
                     {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues.map((value, i) => (
                             <Animated.View
+                                // eslint-disable-next-line react/no-array-index-key
                                 key={`track-mark-${i}`}
                                 style={[
-                                    defaultStyles.renderThumbComponent,
+                                    styles.renderThumbComponent,
                                     {
                                         transform: [
                                             {translateX: value},
@@ -623,11 +617,12 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                         ))}
                     {interpolatedThumbValues.map((value, i) => (
                         <Animated.View
+                            // eslint-disable-next-line react/no-array-index-key
                             key={`slider-thumb-${i}`}
                             style={[
                                 !!renderThumbComponent
-                                    ? defaultStyles.renderThumbComponent
-                                    : defaultStyles.thumb,
+                                    ? styles.renderThumbComponent
+                                    : styles.thumb,
                                 !!renderThumbComponent
                                     ? {}
                                     : {
@@ -650,7 +645,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                         </Animated.View>
                     ))}
                     <View
-                        style={[defaultStyles.touchArea, touchOverflowStyle]}
+                        style={[styles.touchArea, touchOverflowStyle]}
                         {...this._panResponder.panHandlers}
                     >
                         {!!debugTouchArea &&

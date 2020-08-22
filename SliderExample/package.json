@@ -4,20 +4,23 @@
     "private": true,
     "scripts": {
         "start": "react-native start",
-        "run-android": "react-native run-android",
+        "android": "react-native run-android",
+        "ios": " pod install --project-directory=./ios && react-native run-ios",
         "test": "jest"
     },
     "dependencies": {
-        "react": "16.8.3",
-        "react-native": "0.59.9"
+        "react": "16.13.1",
+        "react-native": "0.63.2"
     },
     "devDependencies": {
-        "@babel/core": "^7.5.4",
-        "@babel/runtime": "^7.5.4",
-        "babel-jest": "^24.8.0",
-        "jest": "^24.8.0",
-        "metro-react-native-babel-preset": "^0.55.0",
-        "react-test-renderer": "16.8.3"
+        "@babel/core": "7.11.4",
+        "@babel/runtime": "7.11.2",
+        "@react-native-community/eslint-config": "2.0.0",
+        "babel-jest": "26.3.0",
+        "eslint": "7.7.0",
+        "jest": "26.4.2",
+        "metro-react-native-babel-preset": "0.63.0",
+        "react-test-renderer": "16.13.1"
     },
     "jest": {
         "preset": "react-native"

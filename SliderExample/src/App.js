@@ -1,7 +1,7 @@
 /* @flow */
 import * as React from "react";
 import {SafeAreaView, ScrollView, Text, View} from "react-native";
-import {Slider} from "../src/Slider";
+import {Slider} from "../../src/Slider";
 // styles
 import {
     aboveThumbStyles,
@@ -58,7 +58,7 @@ const SliderContainer = (props: {
     }
 
     const renderChildren = () => {
-        return React.Children.map(props.children, child => {
+        return React.Children.map(props.children, (child) => {
             if (!!child && child.type === Slider) {
                 return React.cloneElement(child, {
                     onValueChange: setValue,
