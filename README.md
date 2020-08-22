@@ -7,6 +7,8 @@
 
 A pure JavaScript version of the `<Slider>` component for react-native and react-native-web.  This can be a direct replacement for the Slider component from react-native/@react-native-community.  Ideas and contributions are very welcome.
 
+Try it out [live on Expo Snack](https://snack.expo.io/@miblanchard/@miblanchard-react-native-slider).
+
 <img src="https://raw.githubusercontent.com/miblanchard/react-native-slider/master/Screenshots/example.png" width="375">
 
 ## Install
@@ -71,8 +73,6 @@ const styles = StyleSheet.create({
 
 AppRegistry.registerComponent("SliderExample", () => SliderExample);
 ```
-
-Try this example [live on Expo Snack](https://snack.expo.io/HkbAqpbwb).
 
 ## Props
 
