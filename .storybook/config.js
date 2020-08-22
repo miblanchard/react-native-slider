@@ -1,5 +1,5 @@
 /* @flow */
-/* eslint-disable global-require */
+import "resize-observer-polyfill/dist/ResizeObserver.global";
 import {configure} from "@storybook/react-native";
 
 configure(() => {
