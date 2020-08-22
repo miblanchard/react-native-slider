@@ -54,7 +54,7 @@
         "@babel/preset-react": "7.10.4",
         "@react-native-community/eslint-config": "1.1.0",
         "@storybook/react": "5.3.17",
-        "@storybook/react-native": "5.3.17",
+        "@storybook/react-native": "5.3.19",
         "babel-eslint": "10.1.0",
         "babel-loader": "8.1.0",
         "babel-plugin-react-native-web": "0.13.8",
