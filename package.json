@@ -79,6 +79,7 @@
         "react-native": "0.63.2",
         "react-native-web": "0.13.8",
         "react-is": "^16.13.1",
+        "resize-observer-polyfill": "1.5.1",
         "rimraf": "3.0.2",
         "webpack": "4.43.0",
         "url-loader": "4.1.0"
