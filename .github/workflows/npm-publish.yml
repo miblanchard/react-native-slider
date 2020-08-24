@@ -4,6 +4,7 @@
 name: Node.js Package
 
 on:
+  workflow_run:
   release:
     types: [created]
 
