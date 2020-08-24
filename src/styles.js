@@ -1,38 +1,38 @@
 /* @flow */
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 const TRACK_SIZE = 4;
 const THUMB_SIZE = 20;
-const GREEN = "green";
-const TRANSPARENT = "transparent";
+const GREEN = 'green';
+const TRANSPARENT = 'transparent';
 
 export const defaultStyles = StyleSheet.create({
     aboveThumbComponentsContainer: {
-        flexDirection: "row",
+        flexDirection: 'row',
     },
     container: {
         height: 40,
-        justifyContent: "center",
+        justifyContent: 'center',
     },
     debugThumbTouchArea: {
         backgroundColor: GREEN,
         opacity: 0.5,
-        position: "absolute",
+        position: 'absolute',
     },
     renderThumbComponent: {
-        position: "absolute",
+        position: 'absolute',
     },
     thumb: {
         borderRadius: THUMB_SIZE / 2,
         height: THUMB_SIZE,
-        position: "absolute",
+        position: 'absolute',
         width: THUMB_SIZE,
     },
     touchArea: {
         backgroundColor: TRANSPARENT,
         bottom: 0,
         left: 0,
-        position: "absolute",
+        position: 'absolute',
         right: 0,
         top: 0,
     },

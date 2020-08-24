@@ -1,7 +1,7 @@
 /* @flow */
-import * as React from "react";
-import {SafeAreaView, ScrollView, Text, View} from "react-native";
-import {Slider} from "../../src/Slider";
+import * as React from 'react';
+import {SafeAreaView, ScrollView, Text, View} from 'react-native';
+import {Slider} from '../../src/Slider';
 // styles
 import {
     aboveThumbStyles,
@@ -18,9 +18,9 @@ import {
     iosStyles,
     styles,
     trackMarkStyles,
-} from "./styles";
+} from './styles';
 
-const thumbImage = require("./img/thumb.png");
+const thumbImage = require('./img/thumb.png');
 
 const DEFAULT_VALUE = 0.2;
 
@@ -42,7 +42,7 @@ const SliderContainer = (props: {
 }) => {
     const {caption, sliderValue, trackMarks} = props;
     const [value, setValue] = React.useState(
-        !!sliderValue ? sliderValue : DEFAULT_VALUE
+        sliderValue ? sliderValue : DEFAULT_VALUE,
     );
 
     let renderTrackMarkComponent;
@@ -75,7 +75,7 @@ const SliderContainer = (props: {
         <View style={styles.sliderContainer}>
             <View style={styles.titleContainer}>
                 <Text>{caption}</Text>
-                <Text>{Array.isArray(value) ? value.join(" - ") : value}</Text>
+                <Text>{Array.isArray(value) ? value.join(' - ') : value}</Text>
             </View>
             {renderChildren()}
         </View>
@@ -91,8 +91,7 @@ const App = () => (
             <SliderContainer
                 caption="<Slider/> with track marks"
                 sliderValue={[1]}
-                trackMarks={[3, 7, 11]}
-            >
+                trackMarks={[3, 7, 11]}>
                 <Slider maximumValue={17} minimumValue={0} step={1} />
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom thumb component">
@@ -110,8 +109,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer
                 caption="<Slider/> 2 thumbs, min, max, and custom tint"
-                sliderValue={[6, 18]}
-            >
+                sliderValue={[6, 18]}>
                 <Slider
                     animateTransition
                     maximumTrackTintColor="#d3d3d3"
