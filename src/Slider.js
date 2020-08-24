@@ -508,6 +508,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             })
         );
 
+        const interpolatedTrackValues = values.map((v) =>
+            v.interpolate({
+                inputRange: [minimumValue, maximumValue],
+                outputRange: [0, containerSize.width - thumbSize.width],
+            }),
+        );
+
         const interpolatedTrackMarksValues = trackMarksValues.map((v) =>
             v.interpolate({
                 inputRange: [minimumValue, maximumValue],
@@ -522,7 +529,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             valueVisibleStyle.opacity = 0;
         }
         const interpolatedRawValues = this._getRawValues(
-            interpolatedThumbValues
+            interpolatedTrackValues
         );
         const minThumbValue = new Animated.Value(
             Math.min(...interpolatedRawValues)
@@ -533,13 +540,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const minimumTrackStyle = {
             position: "absolute",
             left:
-                interpolatedThumbValues.length === 1
+                interpolatedTrackValues.length === 1
                     ? new Animated.Value(0)
                     : Animated.add(minThumbValue, thumbSize.width / 2),
             width:
-                interpolatedThumbValues.length === 1
+                interpolatedTrackValues.length === 1
                     ? Animated.add(
-                          interpolatedThumbValues[0],
+                            interpolatedTrackValues[0],
                           thumbSize.width / 2
                       )
                     : Animated.add(
