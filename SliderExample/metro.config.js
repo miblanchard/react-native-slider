@@ -6,14 +6,14 @@
  *
  * @format
  */
-const path = require("path");
+const path = require('path');
 
 module.exports = {
     projectRoot: path.resolve(__dirname),
     watchFolders: [
         // Let's add the root folder to the watcher
         // for live reload purpose
-        path.resolve(__dirname, "../src"),
+        path.resolve(__dirname, '../src'),
     ],
     resolver: {
         extraNodeModules: new Proxy(
@@ -21,7 +21,7 @@ module.exports = {
             {
                 get: (target, name) =>
                     path.join(process.cwd(), `node_modules/${name}`),
-            }
+            },
         ),
     },
     transformer: {

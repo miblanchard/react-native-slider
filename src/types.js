@@ -1,27 +1,27 @@
 /* @flow */
-import * as React from "react";
+import * as React from 'react';
 import {
     Animated,
     SpringAnimationConfig,
+    StyleSheet,
     TimingAnimationConfig,
-} from "react-native";
-import type {ViewStyleProp} from "react-native/Libraries/StyleSheet/StyleSheet";
+} from 'react-native';
 
 export type ChangeEvent =
-    | "onSlidingComplete"
-    | "onSlidingStart"
-    | "onValueChange";
+    | 'onSlidingComplete'
+    | 'onSlidingStart'
+    | 'onValueChange';
 
-type Dimensions = {height: number, width: number};
+export type Dimensions = {height: number, width: number};
 
 export type SliderProps = {
     animateTransitions: boolean,
-    animationConfig: {
-        spring?: SpringAnimationConfig,
-        timing?: TimingAnimationConfig,
-    },
-    animationType: "spring" | "timing",
-    containerStyle: ViewStyleProp,
+    animationConfig: {|
+        spring?: typeof SpringAnimationConfig,
+        timing?: typeof TimingAnimationConfig,
+    |},
+    animationType: 'spring' | 'timing',
+    containerStyle: typeof StyleSheet.styles,
     debugTouchArea: boolean,
     disabled: boolean,
     maximumTrackTintColor: string,
@@ -36,12 +36,12 @@ export type SliderProps = {
     renderTrackMarkComponent?: (index: number) => React.Node,
     step: number,
     thumbImage: string | number | Array<string | number>,
-    thumbStyle: ViewStyleProp,
+    thumbStyle: typeof StyleSheet.styles,
     thumbTintColor: string,
     thumbTouchSize: Dimensions,
     trackClickable: boolean,
     trackMarks?: Array<number>,
-    trackStyle: ViewStyleProp,
+    trackStyle: typeof StyleSheet.styles,
     value: number | Array<number>,
 };
 
@@ -49,6 +49,6 @@ export type SliderState = {
     allMeasured: boolean,
     containerSize: Dimensions,
     thumbSize: Dimensions,
-    trackMarksValues: Array<Animated.Value>,
-    values: Array<Animated.Value>,
+    trackMarksValues?: Array<typeof Animated.Value>,
+    values: Array<typeof Animated.Value>,
 };
