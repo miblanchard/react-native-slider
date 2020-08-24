@@ -13,8 +13,9 @@
  * https://github.com/flowtype/flow-typed
  */
 
-declare module 'eslint-plugin-prettier' {
-  declare module.exports: any;
+/* @flow */
+declare module "eslint-plugin-prettier" {
+    declare module.exports: any;
 }
 
 /**
@@ -22,11 +23,13 @@ declare module 'eslint-plugin-prettier' {
  * require those files directly. Feel free to delete any files that aren't
  * needed.
  */
-declare module 'eslint-plugin-prettier/eslint-plugin-prettier' {
-  declare module.exports: any;
+declare module "eslint-plugin-prettier/eslint-plugin-prettier" {
+    declare module.exports: any;
 }
 
 // Filename aliases
-declare module 'eslint-plugin-prettier/eslint-plugin-prettier.js' {
-  declare module.exports: $Exports<'eslint-plugin-prettier/eslint-plugin-prettier'>;
+declare module "eslint-plugin-prettier/eslint-plugin-prettier.js" {
+    declare module.exports: $Exports<
+        "eslint-plugin-prettier/eslint-plugin-prettier"
+    >;
 }

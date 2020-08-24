@@ -512,7 +512,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             v.interpolate({
                 inputRange: [minimumValue, maximumValue],
                 outputRange: [0, containerSize.width - thumbSize.width],
-            }),
+            })
         );
 
         const interpolatedTrackMarksValues = trackMarksValues.map((v) =>
@@ -546,7 +546,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             width:
                 interpolatedTrackValues.length === 1
                     ? Animated.add(
-                            interpolatedTrackValues[0],
+                          interpolatedTrackValues[0],
                           thumbSize.width / 2
                       )
                     : Animated.add(
