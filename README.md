@@ -1,5 +1,5 @@
 # @miblanchard/react-native-slider
-
+![Node.js CI](https://github.com/miblanchard/react-native-slider/workflows/Node.js%20CI/badge.svg?branch=main)
 [![npm version](https://img.shields.io/npm/v/@miblanchard/react-native-slider.svg?style=flat-square)](https://npmjs.org/package/@miblanchard/react-native-slider "View this project on npm")
 [![npm downloads](http://img.shields.io/npm/dm/@miblanchard/react-native-slider.svg?style=flat-square)](https://npmjs.org/package/@miblanchard/react-native-slider "View this project on npm")
 [![npm licence](http://img.shields.io/npm/l/@miblanchard/react-native-slider.svg?style=flat-square)](https://npmjs.org/package/@miblanchard/react-native-slider "View this project on npm")
