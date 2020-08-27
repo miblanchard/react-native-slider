@@ -10293,10 +10293,10 @@ react-native-swipe-gestures@^1.0.4:
   resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz#a172cb0f3e7478ccd681fd36b8bfbcdd098bde7c"
   integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
-react-native-web@0.13.8:
-  version "0.13.8"
-  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.13.8.tgz#2c62425c88d56d7061e847ec27b81d54365ab4d8"
-  integrity sha512-xTJUFN9N+hFzdRrCwucMi+kBldKXmGGbsgjKLsbhyWUeXxZypXDUy7r3D6t2EUoFq/U3OJzSx/QY4RdudsRt7Q==
+react-native-web@0.13.9:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/react-native-web/-/react-native-web-0.13.9.tgz#2b410a358ce73def0303c7cfc14b81f736193666"
+  integrity sha512-CheeCh0CT2K9YSW/UFhU9w6s9fyI4wmMmJb/PvoXtIUGHMKUXPEDhL6RCsDElMvHYHjHpoP3ABNuRHj/XmdDXg==
   dependencies:
     array-find-index "^1.0.2"
     create-react-class "^15.6.2"
