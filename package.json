@@ -1,6 +1,6 @@
 {
     "name": "@miblanchard/react-native-slider",
-    "version": "1.6.0",
+    "version": "1.5.0",
     "description": "A pure JavaScript <Slider /> component for react-native",
     "main": "lib/Slider.js",
     "typings": "src/index",
@@ -25,10 +25,12 @@
         "build-storybook": "build-storybook",
         "clean": "rimraf lib",
         "lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
-        "prepublish": "npm run clean && npm run build",
+        "prepublish": "yarn clean && yarn build && yarn version --minor & ./tagLatest.js",
+        "postpublish": "git push && git push --tags",
         "start": "node_modules/react-native/packager/packager.sh",
         "storybook": "start-storybook -p 6006 --config-dir storybook",
-        "test": "yarn lint && yarn flow"
+        "test": "yarn lint && yarn flow",
+        "version": "git add -A dist"
     },
     "repository": {
         "type": "git",
