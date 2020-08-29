@@ -74,5 +74,10 @@
         "rimraf": "3.0.2",
         "url-loader": "4.1.0",
         "webpack": "4.44.1"
+    },
+    "resolutions": {
+        "kind-of": "6.0.3",
+        "prismjs": "1.21.0",
+        "set-value": "2.0.1"
     }
 }
