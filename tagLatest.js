@@ -8,7 +8,9 @@ function gitTagLatest() {
     cp.execFileSync('git', [
         'tag',
         '-a',
-        `publish/${version}`,
+        `publish/${
+            process.env.PUBLISH_DESTINATION === 'npm' ? 'npm' : 'gpr'
+        }/${version}`,
         '-m',
         `Publish @miblanchard/react-native-slider v${version}`,
     ]);
