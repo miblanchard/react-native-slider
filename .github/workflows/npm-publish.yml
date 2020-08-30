@@ -5,6 +5,11 @@ name: Node.js Package
 
 on:
   workflow_dispatch:
+    inputs:
+      versionType:
+        description: "Type of version update to make - major, minor, or patch - default is minor"
+        required: false
+        default: "minor"
   release:
     types: [created]
 
@@ -28,11 +33,14 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org/
+      - uses: fusion-engineering/setup-git-credentials@v2.0.1
+        with:
+          credentials: ${{secrets.GIT_CREDENTIALS}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
           PUBLISH_DESTINATION: npm
       - run: yarn
-      - run: yarn version --minor
+      - run: yarn version --${{github.event.inputs.versionType}}
       - run: yarn publish
 
   publish-gpr:
@@ -44,6 +52,9 @@ jobs:
         with:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
+      - uses: fusion-engineering/setup-git-credentials@v2.0.1
+        with:
+          credentials: ${{secrets.GIT_CREDENTIALS}}
         env:
           NODE_AUTH_TOKEN: ${{secrets.GH_ACTIONS_TOKEN}}
           PUBLISH_DESTINATION: github
