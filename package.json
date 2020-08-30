@@ -1,6 +1,6 @@
 {
     "name": "@miblanchard/react-native-slider",
-    "version": "1.5.0",
+    "version": "1.5.1",
     "description": "A pure JavaScript <Slider /> component for react-native",
     "main": "lib/Slider.js",
     "typings": "src/index",
@@ -30,7 +30,7 @@
         "start": "node_modules/react-native/packager/packager.sh",
         "storybook": "start-storybook -p 6006 --config-dir storybook",
         "test": "yarn lint && yarn flow",
-        "version": "git add -A dist"
+        "version": "git add -A"
     },
     "repository": {
         "type": "git",

@@ -29,8 +29,8 @@ jobs:
           node-version: 14
           registry-url: https://registry.npmjs.org/
         env:
-          PUBLISH_DESTINATION: npm
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          PUBLISH_DESTINATION: npm
       - run: yarn
       - run: yarn version --minor
       - run: yarn publish
@@ -45,7 +45,7 @@ jobs:
           node-version: 14
           registry-url: https://npm.pkg.github.com/
         env:
-          PUBLISH_DESTINATION: github
           NODE_AUTH_TOKEN: ${{secrets.GH_ACTIONS_TOKEN}}
+          PUBLISH_DESTINATION: github
       - run: yarn
       - run: yarn publish
