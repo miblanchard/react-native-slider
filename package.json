@@ -66,7 +66,7 @@
         "flow-bin": "0.132.0",
         "flow-typed": "3.2.1",
         "metro-react-native-babel-preset": "0.63.0",
-        "prettier": "2.1.1",
+        "prettier": "2.1.2",
         "react": "16.13.1",
         "react-dom": "16.13.1",
         "react-is": "16.13.1",
