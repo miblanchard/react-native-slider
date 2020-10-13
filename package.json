@@ -60,7 +60,7 @@
         "@storybook/react-native": "5.3.21",
         "babel-eslint": "10.1.0",
         "babel-loader": "8.1.0",
-        "babel-plugin-react-native-web": "0.13.9",
+        "babel-plugin-react-native-web": "0.14.1",
         "babel-plugin-transform-inline-environment-variables": "0.4.3",
         "eslint": "7.7.0",
         "flow-bin": "0.132.0",
