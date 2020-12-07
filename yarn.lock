@@ -3866,10 +3866,10 @@ babel-plugin-react-docgen@^4.0.0:
     react-docgen "^5.0.0"
     recast "^0.14.7"
 
-babel-plugin-react-native-web@0.13.9:
-  version "0.13.9"
-  resolved "https://registry.yarnpkg.com/babel-plugin-react-native-web/-/babel-plugin-react-native-web-0.13.9.tgz#652168f0244a38c84a7a8f37c556b9ae8e18556d"
-  integrity sha512-4Fnx1WP8xo0riY8GIm/cAGVCvyVJeBvz5YZ1Mtql4FaZQa61lKr7G0DkUp352OyyVaAEkcvq/VgABPx8X6KYfw==
+babel-plugin-react-native-web@0.14.9:
+  version "0.14.9"
+  resolved "https://registry.yarnpkg.com/babel-plugin-react-native-web/-/babel-plugin-react-native-web-0.14.9.tgz#431d492c2eab00b7cd12acf27aaac2743163c6cc"
+  integrity sha512-9Xmv9BGQoAKlwYGDWkTtmqGrGq8XBHchDIsnzRUuKxledZKn6bebPY6mJV8J/8S00St2B5M/IQMV5QwKe1OxNw==
 
 babel-plugin-syntax-jsx@^6.18.0:
   version "6.18.0"
