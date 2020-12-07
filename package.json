@@ -71,7 +71,7 @@
         "react-dom": "16.13.1",
         "react-is": "16.13.1",
         "react-native": "0.63.2",
-        "react-native-web": "0.13.11",
+        "react-native-web": "0.14.9",
         "resize-observer-polyfill": "1.5.1",
         "rimraf": "3.0.2",
         "url-loader": "4.1.0",
