@@ -338,7 +338,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 Math.min(
                     maxValue,
                     minimumValue +
-                        Math.floor(
+                        Math.round(
                             (ratio * (maximumValue - minimumValue)) / step,
                         ) *
                             step,
