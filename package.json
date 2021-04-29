@@ -63,7 +63,7 @@
         "babel-plugin-react-native-web": "0.13.9",
         "babel-plugin-transform-inline-environment-variables": "0.4.3",
         "eslint": "7.7.0",
-        "flow-bin": "0.132.0",
+        "flow-bin": "0.150.0",
         "flow-typed": "3.2.1",
         "metro-react-native-babel-preset": "0.63.0",
         "prettier": "2.2.1",
