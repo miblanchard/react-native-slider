@@ -125,14 +125,14 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     constructor(props: SliderProps) {
         super(props);
         this._panResponder = PanResponder.create({
-            onStartShouldSetPanResponder: this
-                ._handleStartShouldSetPanResponder,
+            onStartShouldSetPanResponder:
+                this._handleStartShouldSetPanResponder,
             onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
             onPanResponderGrant: this._handlePanResponderGrant,
             onPanResponderMove: this._handlePanResponderMove,
             onPanResponderRelease: this._handlePanResponderEnd,
-            onPanResponderTerminationRequest: this
-                ._handlePanResponderRequestEnd,
+            onPanResponderTerminationRequest:
+                this._handlePanResponderRequestEnd,
             onPanResponderTerminate: this._handlePanResponderEnd,
         });
         this.state = {
@@ -237,10 +237,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         );
     };
 
-    _handlePanResponderRequestEnd = (/* e: typeof PressEvent, gestureState: GestureState */) => {
-        // Should we allow another component to take over this pan?
-        return false;
-    };
+    _handlePanResponderRequestEnd =
+        (/* e: typeof PressEvent, gestureState: GestureState */) => {
+            // Should we allow another component to take over this pan?
+            return false;
+        };
 
     _handlePanResponderEnd = (
         e: typeof PressEvent,
