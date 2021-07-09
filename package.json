@@ -64,7 +64,7 @@
         "babel-plugin-transform-inline-environment-variables": "0.4.3",
         "eslint": "7.28.0",
         "eslint-plugin-prettier": "3.4.0",
-        "flow-bin": "0.132.0",
+        "flow-bin": "0.155.0",
         "flow-typed": "3.2.1",
         "metro-react-native-babel-preset": "0.66.0",
         "prettier": "2.3.1",
