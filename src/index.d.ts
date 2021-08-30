@@ -1,7 +1,6 @@
 declare module '@miblanchard/react-native-slider' {
-    import {ComponentClass, PureComponent, ReactNode} from 'react';
-
-    import {ImageSourcePropType, StyleProp, ViewStyle} from 'react-native';
+    import {PureComponent, ReactNode} from 'react';
+    import {Animated, ImageSourcePropType, ViewStyle} from 'react-native';
 
     /**
      * Callback for slider change events. The second number value will be only if provided an array with two values in `value` prop
@@ -16,7 +15,10 @@ declare module '@miblanchard/react-native-slider' {
         /**
          * Used to configure the animation parameters. These are the same parameters in the [Animated library](https://facebook.github.io/react-native/docs/animations.html).
          */
-        animationConfig?: object;
+        animationConfig?: {
+            spring?: Animated.AnimatedProps<ViewStyle>;
+            timing?: Animated.AnimatedProps<ViewStyle>;
+        };
         /**
          * Set to 'spring' or 'timing' to use one of those two types of animations with the default [animation properties](https://facebook.github.io/react-native/docs/animations.html).
          */
@@ -24,7 +26,7 @@ declare module '@miblanchard/react-native-slider' {
         /**
          * The style applied to the container view around slider
          */
-        containerStyle?: StyleProp<ViewStyle>;
+        containerStyle?: ViewStyle;
         /**
          * Set this to true to visually see the thumb touch rect in green.
          */
@@ -84,7 +86,7 @@ declare module '@miblanchard/react-native-slider' {
         /**
          * The style applied to the thumb
          */
-        thumbStyle?: StyleProp<ViewStyle>;
+        thumbStyle?: ViewStyle;
         /**
          * The color used for the thumb. Default: `#343434`
          */
@@ -106,7 +108,7 @@ declare module '@miblanchard/react-native-slider' {
         /**
          * The style applied to the track line
          */
-        trackStyle?: StyleProp<ViewStyle>;
+        trackStyle?: ViewStyle;
         /**
          * Initial value of the slider. The value should be a number or array of numbers between minimumValue and maximumValue, which default to `0` and `1` respectively. Default value is `0`. This is not a controlled component, e.g. if you don't update the value, the component won't be reset to its inital value.
          */

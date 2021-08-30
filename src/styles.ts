@@ -1,11 +1,8 @@
-/* @flow */
 import {StyleSheet} from 'react-native';
-
 const TRACK_SIZE = 4;
 const THUMB_SIZE = 20;
 const GREEN = 'green';
 const TRANSPARENT = 'transparent';
-
 export const defaultStyles = StyleSheet.create({
     aboveThumbComponentsContainer: {
         flexDirection: 'row',

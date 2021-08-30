@@ -1,4 +1,3 @@
-/* @flow */
 import * as React from 'react';
 import {SafeAreaView, ScrollView, Text, View} from 'react-native';
 import {Slider} from '../../src/Slider';
@@ -35,22 +34,24 @@ const renderAboveThumbComponent = () => {
 };
 
 const SliderContainer = (props: {
-    caption: string,
-    children: React.Node,
-    sliderValue?: Array<number>,
-    trackMarks?: Array<number>,
+    caption: string;
+    children: React.ReactElement;
+    sliderValue?: Array<number>;
+    trackMarks?: Array<number>;
 }) => {
     const {caption, sliderValue, trackMarks} = props;
     const [value, setValue] = React.useState(
         sliderValue ? sliderValue : DEFAULT_VALUE,
     );
+    let renderTrackMarkComponent: React.ReactNode;
 
-    let renderTrackMarkComponent;
-    if (trackMarks?.length) {
+    if (trackMarks?.length && (!Array.isArray(value) || value?.length === 1)) {
         renderTrackMarkComponent = (index: number) => {
             const currentMarkValue = trackMarks[index];
+            const currentSliderValue =
+                value || (Array.isArray(value) && value[0]) || 0;
             const style =
-                currentMarkValue > Math.max(value)
+                currentMarkValue > Math.max(currentSliderValue)
                     ? trackMarkStyles.activeMark
                     : trackMarkStyles.inactiveMark;
             return <View style={style} />;
@@ -58,17 +59,21 @@ const SliderContainer = (props: {
     }
 
     const renderChildren = () => {
-        return React.Children.map(props.children, (child) => {
-            if (!!child && child.type === Slider) {
-                return React.cloneElement(child, {
-                    onValueChange: setValue,
-                    renderTrackMarkComponent,
-                    trackMarks,
-                    value,
-                });
-            }
-            return child;
-        });
+        return React.Children.map(
+            props.children,
+            (child: React.ReactElement) => {
+                if (!!child && child.type === Slider) {
+                    return React.cloneElement(child, {
+                        onValueChange: setValue,
+                        renderTrackMarkComponent,
+                        trackMarks,
+                        value,
+                    });
+                }
+
+                return child;
+            },
+        );
     };
 
     return (
@@ -85,6 +90,15 @@ const SliderContainer = (props: {
 const App = () => (
     <SafeAreaView>
         <ScrollView contentContainerStyle={styles.container}>
+            <SliderContainer caption="<Slider/> to test click rounding">
+                <Slider
+                    value={3}
+                    minimumValue={1}
+                    maximumValue={5}
+                    step={1}
+                    trackClickable={true}
+                />
+            </SliderContainer>
             <SliderContainer caption="<Slider/> with default style">
                 <Slider />
             </SliderContainer>
@@ -96,14 +110,14 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom thumb component">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     renderThumbComponent={CustomThumb}
                     trackStyle={customStyles.track}
                 />
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom above thumb component">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     renderAboveThumbComponent={renderAboveThumbComponent}
                 />
             </SliderContainer>
@@ -111,7 +125,7 @@ const App = () => (
                 caption="<Slider/> 2 thumbs, min, max, and custom tint"
                 sliderValue={[6, 18]}>
                 <Slider
-                    animateTransition
+                    animateTransitions
                     maximumTrackTintColor="#d3d3d3"
                     maximumValue={20}
                     minimumTrackTintColor="#1fb28a"
@@ -123,7 +137,7 @@ const App = () => (
 
             <SliderContainer caption="<Slider/> with min, max and custom tints">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     maximumTrackTintColor="#d3d3d3"
                     maximumValue={42}
                     minimumTrackTintColor="#1fb28a"
@@ -133,7 +147,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     maximumTrackTintColor="#b7b7b7"
                     minimumTrackTintColor="#1073ff"
                     thumbStyle={iosStyles.thumb}
@@ -142,7 +156,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #2">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#30a935"
                     thumbStyle={customStyles2.thumb}
                     trackStyle={customStyles2.track}
@@ -150,7 +164,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #3">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#eecba8"
                     thumbStyle={customStyles3.thumb}
                     trackStyle={customStyles3.track}
@@ -158,7 +172,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #4">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#d14ba6"
                     thumbStyle={customStyles4.thumb}
                     trackStyle={customStyles4.track}
@@ -166,7 +180,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #5">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#ec4c46"
                     thumbStyle={customStyles5.thumb}
                     trackStyle={customStyles5.track}
@@ -174,7 +188,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #6">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#e6a954"
                     thumbStyle={customStyles6.thumb}
                     trackStyle={customStyles6.track}
@@ -182,7 +196,7 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #7">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#2f2f2f"
                     thumbStyle={customStyles7.thumb}
                     trackStyle={customStyles7.track}
@@ -190,17 +204,20 @@ const App = () => (
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #8 and thumbTouchSize">
                 <Slider
-                    animateTransition
-                    conatinerStyle={customStyles8.container}
+                    animateTransitions
+                    containerStyle={customStyles8.container}
                     minimumTrackTintColor="#31a4db"
                     thumbStyle={customStyles8.thumb}
-                    thumbTouchSize={{width: 50, height: 40}}
+                    thumbTouchSize={{
+                        width: 50,
+                        height: 40,
+                    }}
                     trackStyle={customStyles8.track}
                 />
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom style #9 and thumbImage">
                 <Slider
-                    animateTransition
+                    animateTransitions
                     minimumTrackTintColor="#13a9d6"
                     thumbImage={thumbImage}
                     thumbStyle={customStyles9.thumb}

@@ -1,21 +1,19 @@
-/* @flow */
 const path = require('path');
 
 const cwd = process.cwd();
-
 module.exports = {
     resolve: {
         alias: {
             '@storybook/react-native': '@storybook/react',
             'react-native': 'react-native-web',
         },
-        extensions: ['.web.js', '.js'],
+        extensions: ['.ts', '.tsx'],
         modules: [path.resolve(cwd, 'node_modules'), 'node_modules'],
     },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|ts|tsx)$/,
                 include: [
                     path.resolve(__dirname, '../src'),
                     path.resolve(__dirname, '../SliderExample/src'),
@@ -46,6 +44,7 @@ module.exports = {
                             ],
                             '@babel/preset-flow',
                             '@babel/preset-react',
+                            '@babel/preset-typescript',
                         ],
                     },
                 },
