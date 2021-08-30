@@ -539,7 +539,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     _getThumbTouchRect = (thumbIndex: number = 0): RectReturn => {
         const {containerSize, thumbSize} = this.state;
         const {thumbTouchSize} = this.props;
-        const {height, width} = thumbTouchSize;
+        const {height, width} = thumbTouchSize || {height: 40, width: 40};
 
         const touchOverflowSize = this._getTouchOverflowSize();
 
