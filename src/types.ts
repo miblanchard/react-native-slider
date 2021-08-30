@@ -1,15 +1,5 @@
 import * as React from 'react';
-import {
-    Animated,
-    SpringAnimationConfig,
-    StyleSheet,
-    TimingAnimationConfig,
-} from 'react-native';
-
-export type ChangeEvent =
-    | 'onSlidingComplete'
-    | 'onSlidingStart'
-    | 'onValueChange';
+import {Animated, ViewStyle} from 'react-native';
 
 export type Dimensions = {
     height: number;
@@ -17,40 +7,40 @@ export type Dimensions = {
 };
 
 export type SliderProps = {
-    animateTransitions: boolean;
-    animationConfig: {
-        spring?: typeof SpringAnimationConfig;
-        timing?: typeof TimingAnimationConfig;
+    animateTransitions?: boolean;
+    animationConfig?: {
+        spring?: Animated.AnimatedProps<ViewStyle>;
+        timing?: Animated.AnimatedProps<ViewStyle>;
     };
     animationType: 'spring' | 'timing';
-    containerStyle: typeof StyleSheet.styles;
-    debugTouchArea: boolean;
-    disabled: boolean;
-    maximumTrackTintColor: string;
+    containerStyle?: ViewStyle;
+    debugTouchArea?: boolean;
+    disabled?: boolean;
+    maximumTrackTintColor?: string;
     maximumValue: number;
-    minimumTrackTintColor: string;
+    minimumTrackTintColor?: string;
     minimumValue: number;
-    onSlidingComplete: (value: number | Array<number>) => void;
-    onSlidingStart: (value: number | Array<number>) => void;
-    onValueChange: (value: number | Array<number>) => void;
+    onSlidingComplete?: (value: number | Array<number>) => void;
+    onSlidingStart?: (value: number | Array<number>) => void;
+    onValueChange?: (value: number | Array<number>) => void;
     renderAboveThumbComponent?: (index: number) => React.ReactNode;
-    renderThumbComponent: () => React.ReactNode;
+    renderThumbComponent?: () => React.ReactNode;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
-    step: number;
-    thumbImage: string | number | Array<string | number>;
-    thumbStyle: typeof StyleSheet.styles;
-    thumbTintColor: string;
+    step?: number;
+    thumbImage?: string | number | Array<string | number>;
+    thumbStyle?: ViewStyle;
+    thumbTintColor?: string;
     thumbTouchSize: Dimensions;
-    trackClickable: boolean;
+    trackClickable?: boolean;
     trackMarks?: Array<number>;
-    trackStyle: typeof StyleSheet.styles;
-    value: number | Array<number>;
+    trackStyle?: ViewStyle;
+    value?: Animated.Value | number | Array<number>;
 };
 
 export type SliderState = {
     allMeasured: boolean;
     containerSize: Dimensions;
     thumbSize: Dimensions;
-    trackMarksValues?: Array<typeof Animated.Value>;
-    values: Array<typeof Animated.Value>;
+    trackMarksValues?: Array<Animated.Value>;
+    values: Array<Animated.Value>;
 };

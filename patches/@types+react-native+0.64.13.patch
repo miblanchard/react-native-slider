@@ -1,0 +1,24 @@
+diff --git a/node_modules/@types/react-native/index.d.ts b/node_modules/@types/react-native/index.d.ts
+index 27c9b21..f830371 100755
+--- a/node_modules/@types/react-native/index.d.ts
++++ b/node_modules/@types/react-native/index.d.ts
+@@ -8783,6 +8783,7 @@ export namespace Animated {
+     }
+ 
+     class AnimatedInterpolation extends AnimatedWithChildren {
++        __getValue(): number;
+         interpolate(config: InterpolationConfigType): AnimatedInterpolation;
+     }
+ 
+@@ -8808,6 +8809,11 @@ export namespace Animated {
+     export class Value extends AnimatedWithChildren {
+         constructor(value: number);
+ 
++        /**
++         * Internal method to derive the current value that includes the offset.
++         */
++        __getValue(): number;
++
+         /**
+          * Directly set the value.  This will stop any animations running on the value
+          * and update all the bound properties.
