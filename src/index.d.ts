@@ -1,10 +1,6 @@
 declare module '@miblanchard/react-native-slider' {
-    import {
-        Animated,
-        ImageSourcePropType,
-        StyleProp,
-        ViewStyle,
-    } from 'react-native';
+    import {PureComponent, ReactNode} from 'react';
+    import {Animated, ImageSourcePropType, ViewStyle} from 'react-native';
 
     /**
      * Callback for slider change events. The second number value will be only if provided an array with two values in `value` prop
