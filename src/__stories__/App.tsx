@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {SafeAreaView, ScrollView, Text, View} from 'react-native';
-import {Slider} from '../Slider';
+import {Slider} from '..';
 // styles
 import {
     aboveThumbStyles,
