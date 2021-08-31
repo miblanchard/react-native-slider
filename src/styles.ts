@@ -1,9 +1,34 @@
-import {StyleSheet} from 'react-native';
 const TRACK_SIZE = 4;
 const THUMB_SIZE = 20;
 const GREEN = 'green';
 const TRANSPARENT = 'transparent';
-export const defaultStyles = StyleSheet.create({
+export const defaultStyles: {
+    aboveThumbComponentsContainer: any;
+    container: any;
+    debugThumbTouchArea: {
+        backgroundColor: string;
+        opacity: number;
+        position: 'absolute';
+    };
+    renderThumbComponent: {
+        position: 'absolute';
+    };
+    thumb: {
+        borderRadius: number;
+        height: number;
+        position: 'absolute';
+        width: number;
+    };
+    touchArea: {
+        backgroundColor: string;
+        bottom: number;
+        left: number;
+        position: 'absolute';
+        right: number;
+        top: number;
+    };
+    track: {borderRadius: number; height: number};
+} = {
     aboveThumbComponentsContainer: {
         flexDirection: 'row',
     },
@@ -37,4 +62,4 @@ export const defaultStyles = StyleSheet.create({
         borderRadius: TRACK_SIZE / 2,
         height: TRACK_SIZE,
     },
-});
+};

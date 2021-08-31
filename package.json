@@ -2,8 +2,8 @@
     "name": "@miblanchard/react-native-slider",
     "version": "2.0.0",
     "description": "A pure JavaScript <Slider /> component for react-native",
-    "main": "lib/Slider.js",
-    "typings": "src/index",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "files": [
         "lib",
         "src"
@@ -21,7 +21,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "babel src --out-dir lib --ignore 'src/__stories__/**'",
+        "build": "tsc",
         "build-storybook": "build-storybook",
         "clean": "rimraf lib",
         "lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
@@ -39,8 +39,8 @@
         "url": "git@github.com:miblanchard/react-native-slider.git"
     },
     "peerDependencies": {
-        "react": ">=16.8.0",
-        "react-native": ">=0.59.0"
+        "react": ">=16.8",
+        "react-native": ">=0.59"
     },
     "devDependencies": {
         "@babel/cli": "7.14.8",
@@ -68,15 +68,15 @@
         "babel-plugin-react-native-web": "0.17.1",
         "babel-plugin-transform-inline-environment-variables": "0.4.3",
         "eslint": "7.32.0",
-        "eslint-plugin-prettier": "3.4.1",
+        "eslint-plugin-prettier": "4.0.0",
         "metro-react-native-babel-preset": "0.66.2",
         "patch-package": "6.4.7",
         "prettier": "2.3.2",
-        "react": "16.13.1",
-        "react-dom": "16.13.1",
-        "react-is": "16.13.1",
-        "react-native": "0.63.2",
-        "react-native-web": "0.16.3",
+        "react": "17.0.2",
+        "react-dom": "17.0.2",
+        "react-is": "17.0.2",
+        "react-native": "0.65.1",
+        "react-native-web": "0.17.1",
         "resize-observer-polyfill": "1.5.1",
         "rimraf": "3.0.2",
         "typescript": "4.3.5",
