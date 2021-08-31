@@ -14,10 +14,7 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|ts|tsx)$/,
-                include: [
-                    path.resolve(__dirname, '../src'),
-                    path.resolve(__dirname, '../SliderExample/src'),
-                ],
+                include: [path.resolve(__dirname, '../src')],
                 use: {
                     loader: 'babel-loader',
                     options: {
@@ -27,7 +24,6 @@ module.exports = {
                             '@babel/plugin-proposal-private-property-in-object',
                             '@babel/plugin-proposal-nullish-coalescing-operator',
                             '@babel/plugin-proposal-optional-chaining',
-                            '@babel/plugin-transform-flow-strip-types',
                             'react-native-web',
                             'transform-inline-environment-variables',
                         ],
@@ -42,7 +38,6 @@ module.exports = {
                                     },
                                 },
                             ],
-                            '@babel/preset-flow',
                             '@babel/preset-react',
                             '@babel/preset-typescript',
                         ],

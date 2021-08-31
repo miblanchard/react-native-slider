@@ -1,9 +1,8 @@
-import {StyleSheet} from 'react-native';
 const TRACK_SIZE = 4;
 const THUMB_SIZE = 20;
 const GREEN = 'green';
 const TRANSPARENT = 'transparent';
-export const defaultStyles = StyleSheet.create({
+export const defaultStyles = {
     aboveThumbComponentsContainer: {
         flexDirection: 'row',
     },
@@ -37,4 +36,4 @@ export const defaultStyles = StyleSheet.create({
         borderRadius: TRACK_SIZE / 2,
         height: TRACK_SIZE,
     },
-});
+};
