@@ -10,7 +10,7 @@ A pure JavaScript version of the `<Slider>` component for react-native and react
 
 Try it out [live on Expo Snack](https://snack.expo.io/@miblanchard/@miblanchard-react-native-slider).
 
-![Screenshot of Slider options](https://raw.githubusercontent.com/miblanchard/react-native-slider/main/screenshots/example.png)
+![Screenshot of Slider options](https://raw.githubusercontent.com/miblanchard/react-native-slider/main/Screenshots/example.png)
 
 ## Install
 
