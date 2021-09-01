@@ -78,7 +78,7 @@
         "react-native-web": "0.17.1",
         "resize-observer-polyfill": "1.5.1",
         "rimraf": "3.0.2",
-        "typescript": "4.3.5",
+        "typescript": "4.4.2",
         "url-loader": "4.1.1",
         "webpack": "5.51.1"
     },
