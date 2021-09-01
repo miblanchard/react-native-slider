@@ -8,16 +8,15 @@ function gitTagLatest() {
     cp.execFileSync('git', [
         'tag',
         '-a',
-        `publish/${
-            process.env.PUBLISH_DESTINATION === 'npm' ? 'npm' : 'gpr'
-        }/${version}`,
+        `publish/npm/${version}`,
         '-m',
         `Publish @miblanchard/react-native-slider v${version}`,
     ]);
 }
 
 process.on('SIGINT', () => process.exit(0));
-process.on('unhandledRejection', (e) => {
+// eslint-disable-next-line prettier/prettier
+process.on('unhandledRejection', e => {
     throw e;
 });
 
