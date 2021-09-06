@@ -1,6 +1,6 @@
 {
     "name": "@miblanchard/react-native-slider",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "A pure JavaScript <Slider /> component for react-native",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -26,10 +26,9 @@
         "clean": "rimraf lib",
         "lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
         "prepublish": "yarn clean && yarn build",
-        "postinstall": "patch-package",
         "postpublish": "./tagLatest.js && git push && git push --tags",
         "storybook": "start-storybook -p 6006 --config-dir storybook",
-        "test": "yarn lint && yarn typescript",
+        "test": "patch-package && yarn lint && yarn typescript",
         "typescript": "tsc --pretty --noEmit",
         "version": "git add -A"
     },
