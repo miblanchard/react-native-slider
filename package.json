@@ -21,7 +21,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "tsc",
+        "build": "patch-package && tsc",
         "build-storybook": "build-storybook",
         "clean": "rimraf lib",
         "lint": "eslint --fix --cache --cache-location ./node_modules/.cache/eslint .",
