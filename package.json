@@ -26,7 +26,7 @@
         "prepublish": "yarn clean && yarn build",
         "postpublish": "./tagLatest.js && git push && git push --tags",
         "storybook": "start-storybook --config-dir .storybook",
-        "test": "patch-package && yarn typescript",
+        "test": "patch-package && yarn lint && yarn typescript",
         "typescript": "tsc --pretty --noEmit",
         "version": "git add -A"
     },
