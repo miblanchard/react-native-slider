@@ -36,7 +36,7 @@ const renderAboveThumbComponent = () => {
 const SliderContainer = (props: {
     caption: string;
     children: React.ReactElement;
-    sliderValue?: Array<number>;
+    sliderValue?: number | Array<number>;
     trackMarks?: Array<number>;
 }) => {
     const {caption, sliderValue, trackMarks} = props;
@@ -48,10 +48,10 @@ const SliderContainer = (props: {
     if (trackMarks?.length && (!Array.isArray(value) || value?.length === 1)) {
         renderTrackMarkComponent = (index: number) => {
             const currentMarkValue = trackMarks[index];
-            const currentSliderValue =
-                value || (Array.isArray(value) && value[0]) || 0;
+
             const style =
-                currentMarkValue > Math.max(currentSliderValue)
+                currentMarkValue >
+                Math.max(Array.isArray(value) ? value[0] : value)
                     ? trackMarkStyles.activeMark
                     : trackMarkStyles.inactiveMark;
             return <View style={style} />;

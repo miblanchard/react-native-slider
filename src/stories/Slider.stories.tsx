@@ -1,4 +1,4 @@
 import React from 'react';
-import {storiesOf} from '@storybook/react-native';
-import SliderExample from './App';
+import {storiesOf} from '@storybook/react';
+import SliderExample from './Slider';
 storiesOf('Slider', module).add('Slider Examples', () => <SliderExample />);
