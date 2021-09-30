@@ -267,7 +267,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             this._getValue(gestureState),
             this._activeThumbIndex,
             () => {
-                this.props?.onSlidingStart?.(
+                this.props?.onValueChange?.(
                     this._getRawValues(this.state.values),
                 );
             },
