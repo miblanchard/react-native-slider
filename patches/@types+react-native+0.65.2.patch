@@ -1,8 +1,8 @@
 diff --git a/node_modules/@types/react-native/index.d.ts b/node_modules/@types/react-native/index.d.ts
-index 27c9b21..f830371 100755
+index f5ddac5..0bf8602 100755
 --- a/node_modules/@types/react-native/index.d.ts
 +++ b/node_modules/@types/react-native/index.d.ts
-@@ -8783,6 +8783,7 @@ export namespace Animated {
+@@ -8815,6 +8815,7 @@ export namespace Animated {
      }
  
      class AnimatedInterpolation extends AnimatedWithChildren {
@@ -10,7 +10,7 @@ index 27c9b21..f830371 100755
          interpolate(config: InterpolationConfigType): AnimatedInterpolation;
      }
  
-@@ -8808,6 +8809,11 @@ export namespace Animated {
+@@ -8840,6 +8841,11 @@ export namespace Animated {
      export class Value extends AnimatedWithChildren {
          constructor(value: number);
  
