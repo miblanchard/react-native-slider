@@ -40,6 +40,7 @@ export type SliderProps = {
     trackMarks?: Array<number>;
     trackStyle?: ViewStyle;
     value?: Animated.Value | number | Array<number>;
+    vertical?: boolean;
 };
 
 export type SliderState = {

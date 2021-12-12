@@ -186,6 +186,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         thumbTintColor: '#343434',
         trackClickable: true,
         value: 0,
+        vertical: false,
     };
 
     static getDerivedStateFromProps(props: SliderProps, state: SliderState) {
@@ -353,17 +354,18 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     };
     _getThumbLeft = (value: number) => {
         const {containerSize, thumbSize} = this.state;
+        const {vertical} = this.props;
 
         const standardRatio = this._getRatio(value);
 
         const ratio = I18nManager.isRTL ? 1 - standardRatio : standardRatio;
-        return ratio * (containerSize.width - thumbSize.width);
+        return ratio * ((vertical ? containerSize.height : containerSize.width) - thumbSize.width);
     };
-    _getValue = (gestureState: {dx: number}) => {
+    _getValue = (gestureState: {dx: number, dy: number}) => {
         const {containerSize, thumbSize, values} = this.state;
-        const {maximumValue, minimumValue, step} = this.props;
+        const {maximumValue, minimumValue, step, vertical} = this.props;
         const length = containerSize.width - thumbSize.width;
-        const thumbLeft = this._previousLeft + gestureState.dx;
+        const thumbLeft = vertical ? this._previousLeft + (gestureState.dy * -1) : this._previousLeft + gestureState.dx;
         const nonRtlRatio = thumbLeft / length;
         const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
         let minValue = minimumValue;
@@ -615,6 +617,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             thumbStyle,
             thumbTintColor,
             trackStyle,
+            vertical,
             ...other
         } = this.props;
         const {
@@ -715,7 +718,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 )}
                 <View
                     {...other}
-                    style={[styles.container, containerStyle]}
+                    style={[styles.container, vertical ? {transform: [{rotate: '-90deg' }]} : {}, containerStyle]}
                     onLayout={this._measureContainer}>
                     <View
                         renderToHardwareTextureAndroid
