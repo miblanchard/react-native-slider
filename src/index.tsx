@@ -199,8 +199,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             const statePatch = {} as SliderState;
 
             if (
-                state.trackMarksValues &&
-                newTrackMarkValues.length !== state.trackMarksValues.length
+                state.trackMarksValues
             ) {
                 statePatch.trackMarksValues = updateValues({
                     values: state.trackMarksValues,
