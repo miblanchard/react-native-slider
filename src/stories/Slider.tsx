@@ -90,6 +90,26 @@ const SliderContainer = (props: {
 const App = () => (
     <SafeAreaView>
         <ScrollView contentContainerStyle={styles.container}>
+            <SliderContainer caption="<Slider/> to test the start from zero - symmetric">
+                <Slider
+                    value={DEFAULT_VALUE}
+                    minimumValue={-1}
+                    maximumValue={1}
+                    step={0.01}
+                    startFromZero
+                    trackClickable={true}
+                />
+            </SliderContainer>
+            <SliderContainer caption="<Slider/> to test the start from zero - asymmetric">
+                <Slider
+                    value={DEFAULT_VALUE}
+                    minimumValue={-0.4}
+                    maximumValue={1}
+                    step={0.01}
+                    startFromZero
+                    trackClickable={true}
+                />
+            </SliderContainer>
             <SliderContainer caption="<Slider/> to test click rounding">
                 <Slider
                     value={3}

@@ -187,6 +187,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         trackClickable: true,
         value: 0,
         vertical: false,
+        startFromZero: false,
     };
 
     static getDerivedStateFromProps(props: SliderProps, state: SliderState) {
@@ -198,9 +199,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             const newTrackMarkValues = normalizeValue(props, props.trackMarks);
             const statePatch = {} as SliderState;
 
-            if (
-                state.trackMarksValues
-            ) {
+            if (state.trackMarksValues) {
                 statePatch.trackMarksValues = updateValues({
                     values: state.trackMarksValues,
                     newValues: newTrackMarkValues,
@@ -358,13 +357,19 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const standardRatio = this._getRatio(value);
 
         const ratio = I18nManager.isRTL ? 1 - standardRatio : standardRatio;
-        return ratio * ((vertical ? containerSize.height : containerSize.width) - thumbSize.width);
+        return (
+            ratio *
+            ((vertical ? containerSize.height : containerSize.width) -
+                thumbSize.width)
+        );
     };
-    _getValue = (gestureState: {dx: number, dy: number}) => {
+    _getValue = (gestureState: {dx: number; dy: number}) => {
         const {containerSize, thumbSize, values} = this.state;
         const {maximumValue, minimumValue, step, vertical} = this.props;
         const length = containerSize.width - thumbSize.width;
-        const thumbLeft = vertical ? this._previousLeft + (gestureState.dy * -1) : this._previousLeft + gestureState.dx;
+        const thumbLeft = vertical
+            ? this._previousLeft + gestureState.dy * -1
+            : this._previousLeft + gestureState.dx;
         const nonRtlRatio = thumbLeft / length;
         const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
         let minValue = minimumValue;
@@ -617,6 +622,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             thumbTintColor,
             trackStyle,
             vertical,
+            startFromZero,
+            step = 0,
             ...other
         } = this.props;
         const {
@@ -626,6 +633,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             trackMarksValues,
             values,
         } = this.state;
+        const _startFromZero =
+            values.length === 1 && minimumValue < 0 && maximumValue > 0
+                ? startFromZero
+                : false;
         const interpolatedThumbValues = values.map((value) =>
             value.interpolate({
                 inputRange: [minimumValue, maximumValue],
@@ -659,31 +670,50 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const interpolatedRawValues = this._getRawValues(
             interpolatedTrackValues,
         );
+        const minRawValue = Math.min(...interpolatedRawValues);
+        const minThumbValue = new Animated.Value(minRawValue);
+        const maxRawValue = Math.max(...interpolatedRawValues);
+        const maxThumbValue = new Animated.Value(maxRawValue);
 
-        const minThumbValue = new Animated.Value(
-            Math.min(...interpolatedRawValues),
-        );
-        const maxThumbValue = new Animated.Value(
-            Math.max(...interpolatedRawValues),
-        );
+        const _value = values[0].__getValue();
+        const sliderWidthCoefficient =
+            containerSize.width /
+            (Math.abs(minimumValue) + Math.abs(maximumValue));
+        const startPositionOnTrack = _startFromZero
+            ? _value < 0 + step
+                ? (_value + Math.abs(minimumValue)) * sliderWidthCoefficient
+                : Math.abs(minimumValue) * sliderWidthCoefficient
+            : 0;
+
+        const minTrackWidth = _startFromZero
+            ? Math.abs(_value) * sliderWidthCoefficient - thumbSize.width / 2
+            : interpolatedTrackValues[0];
+        const clearBorderRadius = {} as ViewStyle;
+        if (_startFromZero && _value < 0 + step) {
+            clearBorderRadius.borderBottomRightRadius = 0;
+            clearBorderRadius.borderTopRightRadius = 0;
+        }
+        if (_startFromZero && _value > 0) {
+            clearBorderRadius.borderTopLeftRadius = 0;
+            clearBorderRadius.borderBottomLeftRadius = 0;
+        }
+
         const minimumTrackStyle = {
             position: 'absolute',
             left:
                 interpolatedTrackValues.length === 1
-                    ? new Animated.Value(0)
+                    ? new Animated.Value(startPositionOnTrack)
                     : Animated.add(minThumbValue, thumbSize.width / 2),
             width:
                 interpolatedTrackValues.length === 1
-                    ? Animated.add(
-                          interpolatedTrackValues[0],
-                          thumbSize.width / 2,
-                      )
+                    ? Animated.add(minTrackWidth, thumbSize.width / 2)
                     : Animated.add(
                           Animated.multiply(minThumbValue, -1),
                           maxThumbValue,
                       ),
             backgroundColor: minimumTrackTintColor,
             ...valueVisibleStyle,
+            ...clearBorderRadius,
         } as ViewStyle;
 
         const touchOverflowStyle = this._getTouchOverflowStyle();
@@ -717,7 +747,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 )}
                 <View
                     {...other}
-                    style={[styles.container, vertical ? {transform: [{rotate: '-90deg' }]} : {}, containerStyle]}
+                    style={[
+                        styles.container,
+                        vertical ? {transform: [{rotate: '-90deg'}]} : {},
+                        containerStyle,
+                    ]}
                     onLayout={this._measureContainer}>
                     <View
                         renderToHardwareTextureAndroid
