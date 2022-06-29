@@ -99,6 +99,33 @@ const SliderContainer = (props: {
     );
 };
 
+const CustomTrack = () => {
+    const [value, setValue] = React.useState(0.5);
+    return (
+        <>
+            <Text>{Array.isArray(value) ? value.join(' - ') : value}</Text>
+            <Slider
+                value={value}
+                onValueChange={setValue}
+                renderMinimumTrackMarkComponent={() => (
+                    <View
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        style={{
+                            backgroundColor: `rgba(255,0,0,${value})`,
+                            height: 15,
+                            position: 'absolute',
+                            top: -5,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                        }}
+                    />
+                )}
+            />
+        </>
+    );
+};
+
 const App = () => (
     <SafeAreaView>
         <ScrollView contentContainerStyle={styles.container}>
@@ -261,6 +288,9 @@ const App = () => (
                     thumbStyle={customStyles9.thumb}
                     thumbTintColor="#0c6692"
                 />
+            </SliderContainer>
+            <SliderContainer caption="<Slider/> with custom minimumTrack">
+                <CustomTrack />
             </SliderContainer>
         </ScrollView>
     </SafeAreaView>
