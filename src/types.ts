@@ -37,6 +37,7 @@ export type SliderProps = {
         index: number,
     ) => React.ReactNode;
     renderThumbComponent?: () => React.ReactNode | Array<() => React.ReactNode>;
+    renderMinimumTrackMarkComponent?: () => React.ReactNode;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
     step?: number;
     thumbImage?: ImageSourcePropType;
