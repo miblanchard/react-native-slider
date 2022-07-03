@@ -29,20 +29,8 @@ const CustomThumb = () => (
     </View>
 );
 
-const renderAboveThumbComponent = (value: number) => {
-    return (
-        <View style={aboveThumbStyles.container}>
-            <Text>{value}</Text>
-        </View>
-    );
-};
-
-const renderBelowThumbComponent = (value: number) => {
-    return (
-        <View style={aboveThumbStyles.container}>
-            <Text>{value}</Text>
-        </View>
-    );
+const renderAboveThumbComponent = () => {
+    return <View style={aboveThumbStyles.container} />;
 };
 
 const SliderContainer = (props: {
@@ -151,12 +139,6 @@ const App = () => (
                 <Slider
                     animateTransitions
                     renderAboveThumbComponent={renderAboveThumbComponent}
-                />
-            </SliderContainer>
-            <SliderContainer caption="<Slider/> with custom below thumb component">
-                <Slider
-                    animateTransitions
-                    renderBelowThumbComponent={renderBelowThumbComponent}
                 />
             </SliderContainer>
             <SliderContainer

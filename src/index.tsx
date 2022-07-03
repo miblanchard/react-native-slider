@@ -616,7 +616,6 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             minimumTrackTintColor,
             minimumValue,
             renderAboveThumbComponent,
-            renderBelowThumbComponent,
             renderTrackMarkComponent,
             renderThumbComponent,
             thumbStyle,
@@ -723,38 +722,27 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             <>
                 {renderAboveThumbComponent && (
                     <View style={styles.aboveThumbComponentsContainer}>
-                        {interpolatedThumbValues.map(
-                            (interpolationValue, i) => {
-                                const animatedValue = values[i] || 0;
-                                const value =
-                                    animatedValue instanceof Animated.Value
-                                        ? animatedValue.__getValue()
-                                        : animatedValue;
-                                return (
-                                    <Animated.View
-                                        key={`slider-above-thumb-${i}`}
-                                        style={[
-                                            styles.renderThumbComponent, // eslint-disable-next-line react-native/no-inline-styles
+                        {interpolatedThumbValues.map((value, i) => (
+                            <Animated.View
+                                key={`slider-above-thumb-${i}`}
+                                style={[
+                                    styles.renderThumbComponent, // eslint-disable-next-line react-native/no-inline-styles
+                                    {
+                                        bottom: 0,
+                                        transform: [
                                             {
-                                                bottom: 0,
-                                                left: thumbSize.width / 2,
-                                                transform: [
-                                                    {
-                                                        translateX:
-                                                            interpolationValue,
-                                                    },
-                                                    {
-                                                        translateY: 0,
-                                                    },
-                                                ],
-                                                ...valueVisibleStyle,
+                                                translateX: value,
                                             },
-                                        ]}>
-                                        {renderAboveThumbComponent(value, i)}
-                                    </Animated.View>
-                                );
-                            },
-                        )}
+                                            {
+                                                translateY: 0,
+                                            },
+                                        ],
+                                        ...valueVisibleStyle,
+                                    },
+                                ]}>
+                                {renderAboveThumbComponent(i)}
+                            </Animated.View>
+                        ))}
                     </View>
                 )}
                 <View
@@ -842,42 +830,6 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             )}
                     </View>
                 </View>
-                {renderBelowThumbComponent && (
-                    <View style={styles.belowThumbComponentsContainer}>
-                        {interpolatedThumbValues.map(
-                            (interpolationValue, i) => {
-                                const animatedValue = values[i] || 0;
-                                const value =
-                                    animatedValue instanceof Animated.Value
-                                        ? animatedValue.__getValue()
-                                        : animatedValue;
-                                return (
-                                    <Animated.View
-                                        key={`slider-below-thumb-${i}`}
-                                        style={[
-                                            styles.renderThumbComponent, // eslint-disable-next-line react-native/no-inline-styles
-                                            {
-                                                top: 0,
-                                                left: thumbSize.width / 2,
-                                                transform: [
-                                                    {
-                                                        translateX:
-                                                            interpolationValue,
-                                                    },
-                                                    {
-                                                        translateY: 0,
-                                                    },
-                                                ],
-                                                ...valueVisibleStyle,
-                                            },
-                                        ]}>
-                                        {renderBelowThumbComponent(value, i)}
-                                    </Animated.View>
-                                );
-                            },
-                        )}
-                    </View>
-                )}
             </>
         );
     }
