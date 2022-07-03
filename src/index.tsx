@@ -750,7 +750,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                                 ...valueVisibleStyle,
                                             },
                                         ]}>
-                                        {renderAboveThumbComponent(value, i)}
+                                        {renderAboveThumbComponent(i, value)}
                                     </Animated.View>
                                 );
                             },
@@ -871,7 +871,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                                 ...valueVisibleStyle,
                                             },
                                         ]}>
-                                        {renderBelowThumbComponent(value, i)}
+                                        {renderBelowThumbComponent(i, value)}
                                     </Animated.View>
                                 );
                             },
