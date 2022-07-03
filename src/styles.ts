@@ -4,6 +4,7 @@ const GREEN = 'green';
 const TRANSPARENT = 'transparent';
 export const defaultStyles: {
     aboveThumbComponentsContainer: any;
+    belowThumbComponentsContainer: any;
     container: any;
     debugThumbTouchArea: {
         backgroundColor: string;
@@ -30,6 +31,9 @@ export const defaultStyles: {
     track: {borderRadius: number; height: number};
 } = {
     aboveThumbComponentsContainer: {
+        flexDirection: 'row',
+    },
+    belowThumbComponentsContainer: {
         flexDirection: 'row',
     },
     container: {
