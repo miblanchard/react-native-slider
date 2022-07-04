@@ -106,7 +106,7 @@ const CustomTrack = () => {
             <Text>{Array.isArray(value) ? value.join(' - ') : value}</Text>
             <Slider
                 value={value}
-                onValueChange={setValue}
+                onValueChange={(newValue) => setValue(newValue as number)}
                 renderMinimumTrackComponent={() => (
                     <View
                         // eslint-disable-next-line react-native/no-inline-styles
