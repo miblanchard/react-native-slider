@@ -619,7 +619,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             renderBelowThumbComponent,
             renderTrackMarkComponent,
             renderThumbComponent,
-            renderMinimumTrackMarkComponent,
+            renderMinimumTrackComponent,
             thumbStyle,
             thumbTintColor,
             trackStyle,
@@ -789,8 +789,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             propMinimumTrackStyle,
                         ]}
                     />
-                    {renderMinimumTrackMarkComponent
-                        ? renderMinimumTrackMarkComponent()
+                    {renderMinimumTrackComponent
+                        ? renderMinimumTrackComponent()
                         : null}
                     {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues &&

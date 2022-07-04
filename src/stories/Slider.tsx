@@ -107,7 +107,7 @@ const CustomTrack = () => {
             <Slider
                 value={value}
                 onValueChange={setValue}
-                renderMinimumTrackMarkComponent={() => (
+                renderMinimumTrackComponent={() => (
                     <View
                         // eslint-disable-next-line react-native/no-inline-styles
                         style={{
