@@ -101,40 +101,48 @@ const SliderContainer = (props: {
 
 const CustomTrack = () => {
     const [value, setValue] = React.useState(0.5);
+
+    const commonStyle = {
+        height: 15,
+        position: 'absolute',
+        top: -5,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    };
+
+    const VeryComplicatedLogicComponent = () => (
+        <View
+            style={
+                {
+                    backgroundImage:
+                        'linear-gradient(90deg, #f8ff00 0%, #3ad59f 100%)',
+                    ...commonStyle,
+                } as any
+            }
+        />
+    );
+
+    const EvenMoreComplicatedLogicComponent = () => (
+        <View
+            style={
+                {
+                    backgroundImage:
+                        'linear-gradient(90deg, #d53369 0%, #daae51 100%)',
+                    ...commonStyle,
+                } as any
+            }
+        />
+    );
+
     return (
         <>
             <Text>{Array.isArray(value) ? value.join(' - ') : value}</Text>
             <Slider
                 value={value}
                 onValueChange={(newValue) => setValue(newValue as number)}
-                renderMinimumTrackComponent={() => (
-                    <View
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        style={{
-                            backgroundColor: `rgba(255,0,0,${value})`,
-                            height: 15,
-                            position: 'absolute',
-                            top: -5,
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                        }}
-                    />
-                )}
-                renderMaximumTrackComponent={() => (
-                    <View
-                        // eslint-disable-next-line react-native/no-inline-styles
-                        style={{
-                            backgroundColor: `rgba(0,255,0,${1 - value})`,
-                            height: 15,
-                            position: 'absolute',
-                            top: -5,
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                        }}
-                    />
-                )}
+                renderMinimumTrackComponent={VeryComplicatedLogicComponent}
+                renderMaximumTrackComponent={EvenMoreComplicatedLogicComponent}
             />
         </>
     );
