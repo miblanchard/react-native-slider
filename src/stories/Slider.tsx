@@ -121,6 +121,20 @@ const CustomTrack = () => {
                         }}
                     />
                 )}
+                renderMaximumTrackComponent={() => (
+                    <View
+                        // eslint-disable-next-line react-native/no-inline-styles
+                        style={{
+                            backgroundColor: `rgba(0,255,0,${1 - value})`,
+                            height: 15,
+                            position: 'absolute',
+                            top: -5,
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                        }}
+                    />
+                )}
             />
         </>
     );
