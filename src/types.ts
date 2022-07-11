@@ -46,6 +46,8 @@ export type SliderProps = {
     trackClickable?: boolean;
     trackMarks?: Array<number>;
     trackStyle?: ViewStyle;
+    minimumTrackStyle?: ViewStyle;
+    maximumTrackStyle?: ViewStyle;
     value?: Animated.Value | number | Array<number>;
     /**
      * Allows the start from the zero value. The minimum value track can be rendered in two directions from zero.
