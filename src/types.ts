@@ -45,6 +45,7 @@ export type SliderProps = {
     thumbTouchSize?: Dimensions;
     trackClickable?: boolean;
     trackMarks?: Array<number>;
+    trackRightPadding?: number;
     trackStyle?: ViewStyle;
     value?: Animated.Value | number | Array<number>;
     /**
