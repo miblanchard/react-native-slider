@@ -829,7 +829,9 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             ]}
                             onLayout={this._measureThumb}>
                             {renderThumbComponent
-                                ? renderThumbComponent()
+                                ? Array.isArray(renderThumbComponent)
+                                    ? renderThumbComponent[i]()
+                                    : renderThumbComponent
                                 : this._renderThumbImage(i)}
                         </Animated.View>
                     ))}
