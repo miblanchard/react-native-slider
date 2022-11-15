@@ -9,7 +9,7 @@ export type Dimensions = {
 /**
  * Callback for slider change events. The second number value will be only if provided an array with two values in `value` prop
  */
-type SliderOnChangeCallback = (value: number | Array<number>) => void;
+export type SliderOnChangeCallback = (value: number | Array<number>) => void;
 
 export type SliderProps = {
     animateTransitions?: boolean;
@@ -36,7 +36,7 @@ export type SliderProps = {
         value: number,
         index: number,
     ) => React.ReactNode;
-    renderThumbComponent?: () => React.ReactNode;
+    renderThumbComponent?: () => React.ReactNode | Array<() => React.ReactNode>;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
     step?: number;
     thumbImage?: ImageSourcePropType;
