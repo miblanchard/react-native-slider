@@ -15,6 +15,8 @@ import {
 import {defaultStyles as styles} from './styles';
 import type {Dimensions, SliderProps, SliderState} from './types';
 
+export type {SliderProps} from './types';
+
 type RectReturn = {
     containsPoint: (nativeX: number, nativeY: number) => boolean;
     height: number;
