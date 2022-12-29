@@ -74,7 +74,7 @@ const SliderContainer = (props: {
         return React.Children.map(
             props.children,
             (child: React.ReactElement) => {
-                if (!!child && child.type === Slider) {
+                if (child) {
                     return React.cloneElement(child, {
                         onValueChange: setValue,
                         renderTrackMarkComponent,
@@ -99,9 +99,7 @@ const SliderContainer = (props: {
     );
 };
 
-const CustomTrack = () => {
-    const [value, setValue] = React.useState(0.5);
-
+const CustomTrackSlider = (props: any) => {
     const commonStyle = {
         height: 15,
         position: 'absolute',
@@ -136,15 +134,11 @@ const CustomTrack = () => {
     );
 
     return (
-        <>
-            <Text>{Array.isArray(value) ? value.join(' - ') : value}</Text>
-            <Slider
-                value={value}
-                onValueChange={(newValue) => setValue(newValue as number)}
-                renderMinimumTrackComponent={VeryComplicatedLogicComponent}
-                renderMaximumTrackComponent={EvenMoreComplicatedLogicComponent}
-            />
-        </>
+        <Slider
+            {...props}
+            renderMinimumTrackComponent={VeryComplicatedLogicComponent}
+            renderMaximumTrackComponent={EvenMoreComplicatedLogicComponent}
+        />
     );
 };
 
@@ -312,7 +306,7 @@ const App = () => (
                 />
             </SliderContainer>
             <SliderContainer caption="<Slider/> with custom minimumTrack">
-                <CustomTrack />
+                <CustomTrackSlider />
             </SliderContainer>
         </ScrollView>
     </SafeAreaView>
