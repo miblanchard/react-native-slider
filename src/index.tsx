@@ -792,11 +792,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             trackStyle,
                             minimumTrackStyle,
                             propMinimumTrackStyle,
-                        ]}
-                    />
-                    {renderMinimumTrackComponent
-                        ? renderMinimumTrackComponent()
-                        : null}
+                        ]}>
+                        {renderMinimumTrackComponent
+                            ? renderMinimumTrackComponent()
+                            : null}
+                    </Animated.View>
                     {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues &&
                         interpolatedTrackMarksValues.map((value, i) => (
