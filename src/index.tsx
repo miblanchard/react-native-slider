@@ -15,6 +15,8 @@ import {
 import {defaultStyles as styles} from './styles';
 import type {Dimensions, SliderProps, SliderState} from './types';
 
+export type {SliderProps} from './types';
+
 type RectReturn = {
     containsPoint: (nativeX: number, nativeY: number) => boolean;
     height: number;
@@ -847,8 +849,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             onLayout={this._measureThumb}>
                             {renderThumbComponent
                                 ? Array.isArray(renderThumbComponent)
-                                    ? renderThumbComponent[i]()
-                                    : renderThumbComponent()
+                                    ? renderThumbComponent[i](i)
+                                    : renderThumbComponent(i)
                                 : this._renderThumbImage(i)}
                         </Animated.View>
                     ))}
