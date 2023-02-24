@@ -621,6 +621,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             renderBelowThumbComponent,
             renderTrackMarkComponent,
             renderThumbComponent,
+            renderMinimumTrackComponent,
+            renderMaximumTrackComponent,
             thumbStyle,
             thumbTintColor,
             trackStyle,
@@ -779,8 +781,12 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             trackStyle,
                             propMaximumTrackStyle,
                         ]}
-                        onLayout={this._measureTrack}
-                    />
+                        onLayout={this._measureTrack}>
+                        {renderMaximumTrackComponent
+                            ? renderMaximumTrackComponent()
+                            : null}
+                    </View>
+
                     <Animated.View
                         renderToHardwareTextureAndroid
                         style={[
@@ -788,8 +794,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             trackStyle,
                             minimumTrackStyle,
                             propMinimumTrackStyle,
-                        ]}
-                    />
+                        ]}>
+                        {renderMinimumTrackComponent
+                            ? renderMinimumTrackComponent()
+                            : null}
+                    </Animated.View>
                     {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues &&
                         interpolatedTrackMarksValues.map((value, i) => (
