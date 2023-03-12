@@ -1,5 +1,5 @@
-import * as React from 'react';
-import {Animated, ImageSourcePropType, ViewStyle} from 'react-native';
+import * as React from "react";
+import { Animated, ImageSourcePropType, ViewStyle } from "react-native";
 
 export type Dimensions = {
     height: number;
@@ -9,7 +9,7 @@ export type Dimensions = {
 /**
  * Callback for slider change events. The second number value will be only if provided an array with two values in `value` prop
  */
-export type SliderOnChangeCallback = (value: number | Array<number>) => void;
+export type SliderOnChangeCallback = (value: Array<number>) => void;
 
 export type SliderProps = {
     animateTransitions?: boolean;
@@ -17,7 +17,7 @@ export type SliderProps = {
         spring?: Animated.AnimatedProps<ViewStyle>;
         timing?: Animated.AnimatedProps<ViewStyle>;
     };
-    animationType: 'spring' | 'timing';
+    animationType: "spring" | "timing";
     containerStyle?: ViewStyle;
     debugTouchArea?: boolean;
     disabled?: boolean;
@@ -30,13 +30,15 @@ export type SliderProps = {
     onValueChange?: SliderOnChangeCallback;
     renderAboveThumbComponent?: (
         value: number,
-        index: number,
+        index: number
     ) => React.ReactNode;
     renderBelowThumbComponent?: (
         value: number,
-        index: number,
+        index: number
     ) => React.ReactNode;
-    renderThumbComponent?: (index: number) => React.ReactNode | Array<() => React.ReactNode>;
+    renderThumbComponent?: (
+        index: number
+    ) => React.ReactNode | Array<() => React.ReactNode>;
     renderMinimumTrackComponent?: () => React.ReactNode;
     renderMaximumTrackComponent?: () => React.ReactNode;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
