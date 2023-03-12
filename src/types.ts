@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Animated, ImageSourcePropType, ViewStyle } from "react-native";
+import * as React from 'react';
+import {Animated, ImageSourcePropType, ViewStyle} from 'react-native';
 
 export type Dimensions = {
     height: number;
@@ -17,30 +17,32 @@ export type SliderProps = {
         spring?: Animated.AnimatedProps<ViewStyle>;
         timing?: Animated.AnimatedProps<ViewStyle>;
     };
-    animationType: "spring" | "timing";
+    animationType: 'spring' | 'timing';
     containerStyle?: ViewStyle;
     debugTouchArea?: boolean;
     disabled?: boolean;
     maximumTrackTintColor?: string;
+    maximumTrackStyle?: ViewStyle;
     maximumValue: number;
     minimumTrackTintColor?: string;
+    minimumTrackStyle?: ViewStyle;
     minimumValue: number;
     onSlidingComplete?: SliderOnChangeCallback;
     onSlidingStart?: SliderOnChangeCallback;
     onValueChange?: SliderOnChangeCallback;
     renderAboveThumbComponent?: (
         value: number,
-        index: number
+        index: number,
     ) => React.ReactNode;
     renderBelowThumbComponent?: (
         value: number,
-        index: number
+        index: number,
     ) => React.ReactNode;
     renderThumbComponent?: (
-        index: number
+        index: number,
     ) => React.ReactNode | Array<() => React.ReactNode>;
-    renderMinimumTrackComponent?: () => React.ReactNode;
     renderMaximumTrackComponent?: () => React.ReactNode;
+    renderMinimumTrackComponent?: () => React.ReactNode;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
     step?: number;
     thumbImage?: ImageSourcePropType;
@@ -50,8 +52,6 @@ export type SliderProps = {
     trackClickable?: boolean;
     trackMarks?: Array<number>;
     trackStyle?: ViewStyle;
-    minimumTrackStyle?: ViewStyle;
-    maximumTrackStyle?: ViewStyle;
     value?: Animated.Value | number | Array<number>;
     /**
      * Allows the start from the zero value. The minimum value track can be rendered in two directions from zero.
