@@ -34,12 +34,12 @@ export type SliderProps = {
     onSlidingStart?: SliderOnChangeCallback;
     onValueChange?: SliderOnChangeCallback;
     renderAboveThumbComponent?: (
-        value: number,
         index: number,
+        value: number,
     ) => React.ReactNode;
     renderBelowThumbComponent?: (
-        value: number,
         index: number,
+        value: number,
     ) => React.ReactNode;
     renderThumbComponent?: (
         index: number,
