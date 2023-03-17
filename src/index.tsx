@@ -256,7 +256,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             ? nativeEvent.locationX - thumbSize.width
             : this._getThumbLeft(this._getCurrentValue(this._activeThumbIndex));
 
-        this.props?.onSlidingStart?.(this._getRawValues(this.state.values));
+        this.props?.onSlidingStart?.(
+            this._getRawValues(this.state.values),
+            this._activeThumbIndex,
+        );
     };
 
     _handlePanResponderMove = (_e: any, gestureState: any) => {
@@ -270,17 +273,16 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             () => {
                 this.props?.onValueChange?.(
                     this._getRawValues(this.state.values),
+                    this._activeThumbIndex,
                 );
             },
         );
     };
 
-    _handlePanResponderRequestEnd = () =>
-        /* e, gestureState: GestureState */
-        {
-            // Should we allow another component to take over this pan?
-            return false;
-        };
+    _handlePanResponderRequestEnd = () => /* e, gestureState: GestureState */ {
+        // Should we allow another component to take over this pan?
+        return false;
+    };
 
     _handlePanResponderEnd = (_e: any, gestureState: any) => {
         if (this.props.disabled) {
@@ -294,11 +296,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 if (this.props.trackClickable) {
                     this.props?.onValueChange?.(
                         this._getRawValues(this.state.values),
+                        this._activeThumbIndex,
                     );
                 }
 
                 this.props?.onSlidingComplete?.(
                     this._getRawValues(this.state.values),
+                    this._activeThumbIndex,
                 );
             },
         );
