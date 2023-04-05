@@ -15,6 +15,8 @@ import {
 import {defaultStyles as styles} from './styles';
 import type {Dimensions, SliderProps, SliderState} from './types';
 
+export type {SliderProps} from './types';
+
 type RectReturn = {
     containsPoint: (nativeX: number, nativeY: number) => boolean;
     height: number;
@@ -254,7 +256,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             ? nativeEvent.locationX - thumbSize.width
             : this._getThumbLeft(this._getCurrentValue(this._activeThumbIndex));
 
-        this.props?.onSlidingStart?.(this._getRawValues(this.state.values));
+        this.props?.onSlidingStart?.(
+            this._getRawValues(this.state.values),
+            this._activeThumbIndex,
+        );
     };
 
     _handlePanResponderMove = (_e: any, gestureState: any) => {
@@ -268,17 +273,16 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             () => {
                 this.props?.onValueChange?.(
                     this._getRawValues(this.state.values),
+                    this._activeThumbIndex,
                 );
             },
         );
     };
 
-    _handlePanResponderRequestEnd = () =>
-        /* e, gestureState: GestureState */
-        {
-            // Should we allow another component to take over this pan?
-            return false;
-        };
+    _handlePanResponderRequestEnd = () => /* e, gestureState: GestureState */ {
+        // Should we allow another component to take over this pan?
+        return false;
+    };
 
     _handlePanResponderEnd = (_e: any, gestureState: any) => {
         if (this.props.disabled) {
@@ -292,11 +296,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 if (this.props.trackClickable) {
                     this.props?.onValueChange?.(
                         this._getRawValues(this.state.values),
+                        this._activeThumbIndex,
                     );
                 }
 
                 this.props?.onSlidingComplete?.(
                     this._getRawValues(this.state.values),
+                    this._activeThumbIndex,
                 );
             },
         );
@@ -619,9 +625,13 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             renderBelowThumbComponent,
             renderTrackMarkComponent,
             renderThumbComponent,
+            renderMinimumTrackComponent,
+            renderMaximumTrackComponent,
             thumbStyle,
             thumbTintColor,
             trackStyle,
+            minimumTrackStyle: propMinimumTrackStyle,
+            maximumTrackStyle: propMaximumTrackStyle,
             vertical,
             startFromZero,
             step = 0,
@@ -775,13 +785,26 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                 backgroundColor: maximumTrackTintColor,
                             },
                             trackStyle,
+                            propMaximumTrackStyle,
                         ]}
-                        onLayout={this._measureTrack}
-                    />
+                        onLayout={this._measureTrack}>
+                        {renderMaximumTrackComponent
+                            ? renderMaximumTrackComponent()
+                            : null}
+                    </View>
+
                     <Animated.View
                         renderToHardwareTextureAndroid
-                        style={[styles.track, trackStyle, minimumTrackStyle]}
-                    />
+                        style={[
+                            styles.track,
+                            trackStyle,
+                            minimumTrackStyle,
+                            propMinimumTrackStyle,
+                        ]}>
+                        {renderMinimumTrackComponent
+                            ? renderMinimumTrackComponent()
+                            : null}
+                    </Animated.View>
                     {renderTrackMarkComponent &&
                         interpolatedTrackMarksValues &&
                         interpolatedTrackMarksValues.map((value, i) => (
@@ -831,7 +854,9 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             ]}
                             onLayout={this._measureThumb}>
                             {renderThumbComponent
-                                ? renderThumbComponent()
+                                ? Array.isArray(renderThumbComponent)
+                                    ? renderThumbComponent[i](i)
+                                    : renderThumbComponent(i)
                                 : this._renderThumbImage(i)}
                         </Animated.View>
                     ))}

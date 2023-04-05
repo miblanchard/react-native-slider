@@ -74,7 +74,7 @@ const SliderContainer = (props: {
         return React.Children.map(
             props.children,
             (child: React.ReactElement) => {
-                if (!!child && child.type === Slider) {
+                if (child) {
                     return React.cloneElement(child, {
                         onValueChange: setValue,
                         renderTrackMarkComponent,
@@ -96,6 +96,49 @@ const SliderContainer = (props: {
             </View>
             {renderChildren()}
         </View>
+    );
+};
+
+const CustomTrackSlider = (props: any) => {
+    const commonStyle = {
+        height: 15,
+        position: 'absolute',
+        top: -5,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    };
+
+    const VeryComplicatedLogicComponent = () => (
+        <View
+            style={
+                {
+                    backgroundImage:
+                        'linear-gradient(90deg, #f8ff00 0%, #3ad59f 100%)',
+                    ...commonStyle,
+                } as any
+            }
+        />
+    );
+
+    const EvenMoreComplicatedLogicComponent = () => (
+        <View
+            style={
+                {
+                    backgroundImage:
+                        'linear-gradient(90deg, #d53369 0%, #daae51 100%)',
+                    ...commonStyle,
+                } as any
+            }
+        />
+    );
+
+    return (
+        <Slider
+            {...props}
+            renderMinimumTrackComponent={VeryComplicatedLogicComponent}
+            renderMaximumTrackComponent={EvenMoreComplicatedLogicComponent}
+        />
     );
 };
 
@@ -261,6 +304,9 @@ const App = () => (
                     thumbStyle={customStyles9.thumb}
                     thumbTintColor="#0c6692"
                 />
+            </SliderContainer>
+            <SliderContainer caption="<Slider/> with custom minimumTrack">
+                <CustomTrackSlider />
             </SliderContainer>
         </ScrollView>
     </SafeAreaView>
