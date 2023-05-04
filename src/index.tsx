@@ -635,6 +635,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             vertical,
             startFromZero,
             step = 0,
+            trackRightPadding,
             ...other
         } = this.props;
         const {
@@ -644,6 +645,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             trackMarksValues,
             values,
         } = this.state;
+        const rightPadding = trackRightPadding ?? thumbSize.width;
         const _startFromZero =
             values.length === 1 && minimumValue < 0 && maximumValue > 0
                 ? startFromZero
@@ -652,14 +654,14 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             value.interpolate({
                 inputRange: [minimumValue, maximumValue],
                 outputRange: I18nManager.isRTL
-                    ? [0, -(containerSize.width - thumbSize.width)]
-                    : [0, containerSize.width - thumbSize.width],
+                    ? [0, -(containerSize.width - rightPadding)]
+                    : [0, containerSize.width - rightPadding],
             }),
         );
         const interpolatedTrackValues = values.map((value) =>
             value.interpolate({
                 inputRange: [minimumValue, maximumValue],
-                outputRange: [0, containerSize.width - thumbSize.width],
+                outputRange: [0, containerSize.width - rightPadding],
             }),
         );
         const interpolatedTrackMarksValues =
@@ -668,8 +670,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 v.interpolate({
                     inputRange: [minimumValue, maximumValue],
                     outputRange: I18nManager.isRTL
-                        ? [0, -(containerSize.width - thumbSize.width)]
-                        : [0, containerSize.width - thumbSize.width],
+                        ? [0, -(containerSize.width - rightPadding)]
+                        : [0, containerSize.width - rightPadding],
                 }),
             );
         const valueVisibleStyle = {} as ViewStyle;
