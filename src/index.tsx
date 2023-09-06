@@ -701,6 +701,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const minTrackWidth = _startFromZero
             ? Math.abs(_value) * sliderWidthCoefficient - thumbSize.width / 2
             : interpolatedTrackValues[0];
+        const maxTrackWidth = interpolatedTrackValues[1];
         const clearBorderRadius = {} as ViewStyle;
         if (_startFromZero && _value < 0 + step) {
             clearBorderRadius.borderBottomRightRadius = 0;
@@ -716,14 +717,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             left:
                 interpolatedTrackValues.length === 1
                     ? new Animated.Value(startPositionOnTrack)
-                    : Animated.add(minThumbValue, thumbSize.width / 2),
+                    : Animated.add(minTrackWidth, thumbSize.width / 2),
             width:
                 interpolatedTrackValues.length === 1
                     ? Animated.add(minTrackWidth, thumbSize.width / 2)
-                    : Animated.add(
-                          Animated.multiply(minThumbValue, -1),
-                          maxThumbValue,
-                      ),
+                    : Animated.add(Animated.multiply(minTrackWidth, -1), maxTrackWidth),
             backgroundColor: minimumTrackTintColor,
             ...valueVisibleStyle,
             ...clearBorderRadius,
