@@ -680,14 +680,6 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             valueVisibleStyle.opacity = 0;
         }
 
-        const interpolatedRawValues = this._getRawValues(
-            interpolatedTrackValues,
-        );
-        const minRawValue = Math.min(...interpolatedRawValues);
-        const minThumbValue = new Animated.Value(minRawValue);
-        const maxRawValue = Math.max(...interpolatedRawValues);
-        const maxThumbValue = new Animated.Value(maxRawValue);
-
         const _value = values[0].__getValue();
         const sliderWidthCoefficient =
             containerSize.width /
@@ -721,7 +713,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             width:
                 interpolatedTrackValues.length === 1
                     ? Animated.add(minTrackWidth, thumbSize.width / 2)
-                    : Animated.add(Animated.multiply(minTrackWidth, -1), maxTrackWidth),
+                    : Animated.add(
+                          Animated.multiply(minTrackWidth, -1),
+                          maxTrackWidth,
+                      ),
             backgroundColor: minimumTrackTintColor,
             ...valueVisibleStyle,
             ...clearBorderRadius,
