@@ -43,17 +43,8 @@ const Rect = ({
         nativeX <= x + width &&
         nativeY <= y + height,
     height,
-    trackDistanceToPoint: (nativeX: number) => {
-        if (nativeX < x) {
-            return x - nativeX;
-        }
-
-        if (nativeX > x + width) {
-            return nativeX - (x + width);
-        }
-
-        return 0;
-    },
+    trackDistanceToPoint: (nativeX: number) =>
+        Math.abs(nativeX - (x + width / 2)), // gets absolute distance from center of rect
     width,
     x,
     y,
@@ -507,22 +498,28 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const {nativeEvent} = e;
         const {trackClickable} = this.props;
         const {values} = this.state;
-        const hitThumb = values.find((_, i) => {
+        const hitThumbs = values.map((_, i) => {
             const thumbTouchRect = this._getThumbTouchRect(i);
-
             const containsPoint = thumbTouchRect.containsPoint(
                 nativeEvent.locationX,
                 nativeEvent.locationY,
             );
 
             if (containsPoint) {
-                this._activeThumbIndex = i;
+                return thumbTouchRect.trackDistanceToPoint(
+                    nativeEvent.locationX,
+                );
+            } else {
+                false;
             }
-
-            return containsPoint;
         });
 
-        if (hitThumb) {
+        // if multiple thumbs are hit, set the current thumb to the closest point of touch
+        if (hitThumbs.filter(Boolean).length > 0) {
+            const defaultVal = (hitThumbs.find(Boolean) || this.props.maximumValue) + 1; // to replace value for thumbs not touched
+            this._activeThumbIndex = indexOfLowest(
+                hitThumbs.map((val) => val ?? defaultVal),
+            );
             return true;
         }
 
@@ -721,7 +718,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             width:
                 interpolatedTrackValues.length === 1
                     ? Animated.add(minTrackWidth, thumbSize.width / 2)
-                    : Animated.add(Animated.multiply(minTrackWidth, -1), maxTrackWidth),
+                    : Animated.add(
+                          Animated.multiply(minTrackWidth, -1),
+                          maxTrackWidth,
+                      ),
             backgroundColor: minimumTrackTintColor,
             ...valueVisibleStyle,
             ...clearBorderRadius,
