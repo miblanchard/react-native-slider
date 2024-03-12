@@ -212,24 +212,39 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         }
     }
 
-    componentDidUpdate() {
-        const newValues = normalizeValue(
-            this.props,
-            this.props.value instanceof Animated.Value
-                ? this.props.value.__getValue()
-                : this.props.value,
-        );
-        newValues.forEach((value, i) => {
-            if (!this.state.values[i]) {
-                this._setCurrentValue(value, i);
-            } else if (value !== this.state.values[i].__getValue()) {
-                if (this.props.animateTransitions) {
-                    this._setCurrentValueAnimated(value, i);
-                } else {
-                    this._setCurrentValue(value, i);
-                }
-            }
-        });
+    componentDidUpdate(prevProps) {
+        // Check if the value prop has changed
+        if (this.props.value !== prevProps.value) {
+            const newValues = normalizeValue(this.props, this.props.value);
+
+            this.setState({
+                values: updateValues({
+                    values: this.state.values,
+                    newValues: newValues,
+                }),
+            }, () => {
+                newValues.forEach((value, i) => {
+                    const currentValue = this.state.values[i].__getValue();
+                    if (value !== currentValue && this.props.animateTransitions) {
+                        this._setCurrentValueAnimated(value, i);
+                    } else {
+                        this._setCurrentValue(value, i);
+                    }
+                });
+            });
+        }
+
+        // Check for other prop changes that might require state updates, e.g., trackMarks
+        if (this.props.trackMarks !== prevProps.trackMarks) {
+            const newTrackMarksValues = normalizeValue(this.props, this.props.trackMarks);
+
+            this.setState({
+                trackMarksValues: updateValues({
+                    values: this.state.trackMarksValues,
+                    newValues: newTrackMarksValues,
+                }),
+            });
+        }
     }
 
     _getRawValues(
