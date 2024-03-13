@@ -20,7 +20,7 @@ export type SliderProps = {
         spring?: Animated.AnimatedProps<ViewStyle>;
         timing?: Animated.AnimatedProps<ViewStyle>;
     };
-    animationType: 'spring' | 'timing';
+    animationType?: 'spring' | 'timing';
     containerStyle?: ViewStyle;
     debugTouchArea?: boolean;
     disabled?: boolean;
