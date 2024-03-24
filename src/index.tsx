@@ -212,9 +212,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: any) {
         // Check if the value prop has changed
         if (this.props.value !== prevProps.value) {
+            // @ts-ignore
             const newValues = normalizeValue(this.props, this.props.value);
 
             // eslint-disable-next-line react/no-did-update-set-state
@@ -227,6 +228,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                 },
                 () => {
                     newValues.forEach((value, i) => {
+                        // @ts-ignore
                         const currentValue = this.state.values[i].__getValue();
                         if (
                             value !== currentValue &&
@@ -251,6 +253,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             // eslint-disable-next-line react/no-did-update-set-state
             this.setState({
                 trackMarksValues: updateValues({
+                    // @ts-ignore
                     values: this.state.trackMarksValues,
                     newValues: newTrackMarksValues,
                 }),
