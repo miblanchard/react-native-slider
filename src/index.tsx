@@ -271,6 +271,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             ? nativeEvent.locationX - thumbSize.width
             : this._getThumbLeft(this._getCurrentValue(this._activeThumbIndex));
 
+        if (this.props.thumbTouchSize) {
+            this._previousLeft -=
+                (this.props.thumbTouchSize.width - thumbSize.width) / 2;
+        }
+
         this.props?.onSlidingStart?.(
             this._getRawValues(this.state.values),
             this._activeThumbIndex,
@@ -486,7 +491,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         if (allMeasured) {
             size.width = Math.max(
                 0,
-                thumbTouchSize?.width || 0 - thumbSize.width,
+                thumbTouchSize?.width || 0 + thumbSize.width,
             );
             size.height = Math.max(
                 0,
@@ -594,10 +599,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         thumbLeft: Animated.AnimatedInterpolation,
         index: number,
     ) => {
-        const {height, y, width} = this._getThumbTouchRect() || {};
+        const {height, x, y, width} = this._getThumbTouchRect() || {};
         const positionStyle = {
             height,
-            left: thumbLeft,
+            left: x,
             top: y,
             width,
         };
