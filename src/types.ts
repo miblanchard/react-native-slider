@@ -64,6 +64,8 @@ export type SliderProps = {
      */
     startFromZero?: boolean;
     vertical?: boolean;
+    lowerLimit?: number;
+    upperLimit?: number;
 };
 
 export type SliderState = {
