@@ -203,24 +203,53 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         }
     }
 
-    componentDidUpdate() {
-        const newValues = normalizeValue(
-            this.props,
-            this.props.value instanceof Animated.Value
-                ? this.props.value.__getValue()
-                : this.props.value,
-        );
-        newValues.forEach((value, i) => {
-            if (!this.state.values[i]) {
-                this._setCurrentValue(value, i);
-            } else if (value !== this.state.values[i].__getValue()) {
-                if (this.props.animateTransitions) {
-                    this._setCurrentValueAnimated(value, i);
-                } else {
-                    this._setCurrentValue(value, i);
-                }
-            }
-        });
+    componentDidUpdate(prevProps: any) {
+        // Check if the value prop has changed
+        if (this.props.value !== prevProps.value) {
+            // @ts-ignore
+            const newValues = normalizeValue(this.props, this.props.value);
+
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState(
+                {
+                    values: updateValues({
+                        values: this.state.values,
+                        newValues: newValues,
+                    }),
+                },
+                () => {
+                    newValues.forEach((value, i) => {
+                        // @ts-ignore
+                        const currentValue = this.state.values[i].__getValue();
+                        if (
+                            value !== currentValue &&
+                            this.props.animateTransitions
+                        ) {
+                            this._setCurrentValueAnimated(value, i);
+                        } else {
+                            this._setCurrentValue(value, i);
+                        }
+                    });
+                },
+            );
+        }
+
+        // Check for other prop changes that might require state updates, e.g., trackMarks
+        if (this.props.trackMarks !== prevProps.trackMarks) {
+            const newTrackMarksValues = normalizeValue(
+                this.props,
+                this.props.trackMarks,
+            );
+
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState({
+                trackMarksValues: updateValues({
+                    // @ts-ignore
+                    values: this.state.trackMarksValues,
+                    newValues: newTrackMarksValues,
+                }),
+            });
+        }
     }
 
     _getRawValues(
@@ -246,6 +275,11 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         this._previousLeft = this.props.trackClickable
             ? nativeEvent.locationX - thumbSize.width
             : this._getThumbLeft(this._getCurrentValue(this._activeThumbIndex));
+
+        if (this.props.thumbTouchSize) {
+            this._previousLeft -=
+                (this.props.thumbTouchSize.width - thumbSize.width) / 2;
+        }
 
         this.props?.onSlidingStart?.(
             this._getRawValues(this.state.values),
@@ -462,7 +496,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         if (allMeasured) {
             size.width = Math.max(
                 0,
-                thumbTouchSize?.width || 0 - thumbSize.width,
+                thumbTouchSize?.width || 0 + thumbSize.width,
             );
             size.height = Math.max(
                 0,
@@ -576,10 +610,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         thumbLeft: Animated.AnimatedInterpolation,
         index: number,
     ) => {
-        const {height, y, width} = this._getThumbTouchRect() || {};
+        const {height, x, y, width} = this._getThumbTouchRect() || {};
         const positionStyle = {
             height,
-            left: thumbLeft,
+            left: x,
             top: y,
             width,
         };
@@ -676,14 +710,6 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         if (!allMeasured) {
             valueVisibleStyle.opacity = 0;
         }
-
-        const interpolatedRawValues = this._getRawValues(
-            interpolatedTrackValues,
-        );
-        const minRawValue = Math.min(...interpolatedRawValues);
-        const minThumbValue = new Animated.Value(minRawValue);
-        const maxRawValue = Math.max(...interpolatedRawValues);
-        const maxThumbValue = new Animated.Value(maxRawValue);
 
         const _value = values[0].__getValue();
         const sliderWidthCoefficient =
