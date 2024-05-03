@@ -48,6 +48,7 @@ export type SliderProps = {
     renderMinimumTrackComponent?: () => React.ReactNode;
     renderTrackMarkComponent?: (index: number) => React.ReactNode;
     step?: number;
+    testID?: ViewStyle['testID'];
     thumbImage?: ImageSourcePropType;
     thumbStyle?: ViewStyle;
     thumbTintColor?: string;
