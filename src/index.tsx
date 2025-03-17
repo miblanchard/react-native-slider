@@ -616,7 +616,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         const {height, x, y, width} = this._getThumbTouchRect() || {};
         const positionStyle = {
             height,
-            left: x,
+            start: x,
             top: y,
             width,
         };
@@ -740,7 +740,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
 
         const minimumTrackStyle = {
             position: 'absolute',
-            left:
+            start:
                 interpolatedTrackValues.length === 1
                     ? new Animated.Value(startPositionOnTrack)
                     : Animated.add(minTrackWidth, thumbSize.width / 2),
@@ -776,7 +776,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                             styles.renderThumbComponent, // eslint-disable-next-line react-native/no-inline-styles
                                             {
                                                 bottom: 0,
-                                                left: thumbSize.width / 2,
+                                                start: thumbSize.width / 2,
                                                 transform: [
                                                     {
                                                         translateX:
@@ -912,7 +912,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                                             styles.renderThumbComponent, // eslint-disable-next-line react-native/no-inline-styles
                                             {
                                                 top: 0,
-                                                left: thumbSize.width / 2,
+                                                start: thumbSize.width / 2,
                                                 transform: [
                                                     {
                                                         translateX:
