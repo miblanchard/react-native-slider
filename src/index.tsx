@@ -404,51 +404,60 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         );
     };
     _getValue = (gestureState: {dx: number; dy: number}) => {
-        const {containerSize, thumbSize, values} = this.state;
-        const {maximumValue, minimumValue, step, vertical} = this.props;
-        const length = containerSize.width - thumbSize.width;
-        const thumbLeft = vertical
-            ? this._previousLeft + gestureState.dy * -1
-            : this._previousLeft + gestureState.dx;
-        const nonRtlRatio = thumbLeft / length;
-        const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
-        let minValue = minimumValue;
-        let maxValue = maximumValue;
+      const {containerSize, thumbSize, values} = this.state;
+      const {maximumValue, minimumValue, step, vertical} = this.props;
+      const length = containerSize.width - thumbSize.width;
+      const thumbLeft = vertical
+          ? this._previousLeft + gestureState.dy * -1
+          : this._previousLeft + gestureState.dx;
+      const nonRtlRatio = thumbLeft / length;
+      const ratio = I18nManager.isRTL ? 1 - nonRtlRatio : nonRtlRatio;
+      let minValue = minimumValue;
+      let maxValue = maximumValue;
+      const rawValues = this._getRawValues(values);
 
-        const rawValues = this._getRawValues(values);
+      let buffer;
+      if (step) {
+          buffer = step;
+      } else {
+          const trackLength = containerSize.width - thumbSize.width;
+          const minPixelDistance = thumbSize.width;
+          buffer =
+              trackLength > 0
+                  ? (minPixelDistance / trackLength) *
+                    (maximumValue - minimumValue)
+                  : 0;
+      }
 
-        const buffer = step ? step : 0.1;
+      if (values.length === 2) {
+          if (this._activeThumbIndex === 1) {
+              minValue = rawValues[0] + buffer;
+          } else {
+              maxValue = rawValues[1] - buffer;
+          }
+      }
 
-        if (values.length === 2) {
-            if (this._activeThumbIndex === 1) {
-                minValue = rawValues[0] + buffer;
-            } else {
-                maxValue = rawValues[1] - buffer;
-            }
-        }
-
-        if (step) {
-            return Math.max(
-                minValue,
-                Math.min(
-                    maxValue,
-                    minimumValue +
-                        Math.round(
-                            (ratio * (maximumValue - minimumValue)) / step,
-                        ) *
-                            step,
-                ),
-            );
-        }
-
-        return Math.max(
-            minValue,
-            Math.min(
-                maxValue,
-                ratio * (maximumValue - minimumValue) + minimumValue,
-            ),
-        );
-    };
+      if (step) {
+          return Math.max(
+              minValue,
+              Math.min(
+                  maxValue,
+                  minimumValue +
+                      Math.round(
+                          (ratio * (maximumValue - minimumValue)) / step,
+                      ) *
+                          step,
+              ),
+          );
+      }
+      return Math.max(
+          minValue,
+          Math.min(
+              maxValue,
+              ratio * (maximumValue - minimumValue) + minimumValue,
+          ),
+      );
+  };
     _getCurrentValue = (thumbIndex: number = 0) =>
         this.state.values[thumbIndex].__getValue();
 
