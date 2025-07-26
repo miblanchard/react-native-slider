@@ -30,6 +30,13 @@ export type SliderProps = {
     minimumTrackTintColor?: string;
     minimumTrackStyle?: ViewStyle;
     minimumValue: number;
+    cachedTrackTintColor?: string;
+    cachedTrackStyle?: ViewStyle;
+    /**
+     * Useful when using slider with media player and you want to show cached/buffered value (similar to youtube).
+     * e.g. in react-native-video you get 'playableDuration' in onProgress event gives already buffered video length.
+     */
+    cachedValue?: number;
     onSlidingComplete?: SliderOnChangeCallback;
     onSlidingStart?: SliderOnChangeCallback;
     onValueChange?: SliderOnChangeCallback;
