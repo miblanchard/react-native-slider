@@ -184,6 +184,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         maximumValue: 1,
         minimumTrackTintColor: '#3f3f3f',
         minimumValue: 0,
+        cachedTrackTintColor: '#7e7c7c',
         step: 0,
         thumbTintColor: '#343434',
         trackClickable: true,
@@ -655,6 +656,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             maximumValue,
             minimumTrackTintColor,
             minimumValue,
+            cachedTrackTintColor,
+            cachedValue,
             renderAboveThumbComponent,
             renderBelowThumbComponent,
             renderTrackMarkComponent,
@@ -666,6 +669,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             trackStyle,
             minimumTrackStyle: propMinimumTrackStyle,
             maximumTrackStyle: propMaximumTrackStyle,
+            cachedTrackStyle: propCachedTrackStyle,
             vertical,
             startFromZero,
             step = 0,
@@ -737,6 +741,16 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             clearBorderRadius.borderTopLeftRadius = 0;
             clearBorderRadius.borderBottomLeftRadius = 0;
         }
+
+        const cachedTrackStyle = (
+            cachedValue
+                ? {
+                      width: (cachedValue / maximumValue) * 100 + '%',
+                      position: 'absolute',
+                      backgroundColor: cachedTrackTintColor,
+                  }
+                : {}
+        ) as ViewStyle;
 
         const minimumTrackStyle = {
             position: 'absolute',
@@ -819,7 +833,17 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                             ? renderMaximumTrackComponent()
                             : null}
                     </View>
-
+                    {cachedValue !== undefined && (
+                        <View
+                            renderToHardwareTextureAndroid
+                            style={[
+                                styles.track,
+                                trackStyle,
+                                cachedTrackStyle,
+                                propCachedTrackStyle,
+                            ]}
+                        />
+                    )}
                     <Animated.View
                         renderToHardwareTextureAndroid
                         style={[
