@@ -213,52 +213,60 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     }
 
     componentDidUpdate(prevProps: any) {
-        // Check if the value prop has changed
         if (this.props.value !== prevProps.value) {
-            // @ts-ignore
-            const newValues = normalizeValue(this.props, this.props.value);
+        // @ts-ignore
+        const newValues = normalizeValue(this.props, this.props.value);
 
-            // eslint-disable-next-line react/no-did-update-set-state
-            this.setState(
-                {
-                    values: updateValues({
-                        values: this.state.values,
-                        newValues: newValues,
-                    }),
-                },
-                () => {
-                    newValues.forEach((value, i) => {
-                        // @ts-ignore
-                        const currentValue = this.state.values[i].__getValue();
-                        if (
-                            value !== currentValue &&
-                            this.props.animateTransitions
-                        ) {
-                            this._setCurrentValueAnimated(value, i);
-                        } else {
-                            this._setCurrentValue(value, i);
-                        }
-                    });
-                },
-            );
+        const currentRaw = this._getRawValues(this.state.values);
+        const step = this.props.step || 0;
+        const eps = step ? step / 2 : 0;
+        const sameLength =
+        Array.isArray(newValues) && newValues.length === currentRaw.length;
+        const numericallyEqual =
+        sameLength &&
+        newValues.every((value, i) => Math.abs(value - currentRaw[i]) <= eps);
+
+        if (numericallyEqual) {
+        return;
         }
 
-        // Check for other prop changes that might require state updates, e.g., trackMarks
-        if (this.props.trackMarks !== prevProps.trackMarks) {
-            const newTrackMarksValues = normalizeValue(
-                this.props,
-                this.props.trackMarks,
-            );
-
-            // eslint-disable-next-line react/no-did-update-set-state
-            this.setState({
-                trackMarksValues: updateValues({
-                    // @ts-ignore
-                    values: this.state.trackMarksValues,
-                    newValues: newTrackMarksValues,
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState(
+            {
+                values: updateValues({
+                values: this.state.values,
+                newValues: newValues,
                 }),
-            });
-        }
+            },
+            () => {
+                newValues.forEach((value, i) => {
+                // @ts-ignore
+                const currentValue = this.state.values[i].__getValue();
+                if (value !== currentValue && this.props.animateTransitions) {
+                    this._setCurrentValueAnimated(value, i);
+                } else {
+                    this._setCurrentValue(value, i);
+                }
+                });
+            },
+        );
+    }
+
+    if (this.props.trackMarks !== prevProps.trackMarks) {
+        const newTrackMarksValues = normalizeValue(
+        this.props,
+        this.props.trackMarks,
+        );
+
+        // eslint-disable-next-line react/no-did-update-set-state
+        this.setState({
+           trackMarksValues: updateValues({
+                // @ts-ignore
+                values: this.state.trackMarksValues,
+                newValues: newTrackMarksValues,
+            }),
+        });
+    }
     }
 
     _getRawValues(
@@ -296,21 +304,30 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         );
     };
 
+    _throttleTimeout: any = null;
+    _rafId: number | null = null;
     _handlePanResponderMove = (_e: any, gestureState: any) => {
         if (this.props.disabled) {
             return;
         }
 
-        this._setCurrentValue(
-            this._getValue(gestureState),
+        if (this._throttleTimeout) {
+            clearTimeout(this._throttleTimeout);
+            this._throttleTimeout = null;
+        }
+
+        this._setCurrentValue(this._getValue(gestureState), this._activeThumbIndex);
+
+        if (this._rafId) {
+            cancelAnimationFrame(this._rafId);
+        }
+        this._rafId = requestAnimationFrame(() => {
+            this.props?.onValueChange?.(
+            this._getRawValues(this.state.values),
             this._activeThumbIndex,
-            () => {
-                this.props?.onValueChange?.(
-                    this._getRawValues(this.state.values),
-                    this._activeThumbIndex,
-                );
-            },
-        );
+            );
+            this._rafId = null;
+        });
     };
 
     _handlePanResponderRequestEnd = () => /* e, gestureState: GestureState */ {
@@ -509,7 +526,7 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
             );
             size.height = Math.max(
                 0,
-                thumbTouchSize?.height || 0 - containerSize.height,
+                (thumbTouchSize?.height || 0) - containerSize.height,
             );
         }
 
