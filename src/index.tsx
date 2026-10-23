@@ -392,7 +392,10 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     };
     _getThumbLeft = (value: number) => {
         const {containerSize, thumbSize} = this.state;
-        const {vertical} = this.props;
+        const {vertical, trackRightPadding} = this.props;
+        // Use the same scale as the interpolations in render(), so the drawn
+        // thumb and its touch rect stay aligned when trackRightPadding is set.
+        const rightPadding = trackRightPadding ?? thumbSize.width;
 
         const standardRatio = this._getRatio(value);
 
@@ -400,13 +403,16 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
         return (
             ratio *
             ((vertical ? containerSize.height : containerSize.width) -
-                thumbSize.width)
+                rightPadding)
         );
     };
     _getValue = (gestureState: {dx: number; dy: number}) => {
         const {containerSize, thumbSize, values} = this.state;
-        const {maximumValue, minimumValue, step, vertical} = this.props;
-        const length = containerSize.width - thumbSize.width;
+        const {maximumValue, minimumValue, step, vertical, trackRightPadding} =
+            this.props;
+        // Inverse of _getThumbLeft, so a drag tracks the finger 1:1.
+        const length =
+            containerSize.width - (trackRightPadding ?? thumbSize.width);
         const thumbLeft = vertical
             ? this._previousLeft + gestureState.dy * -1
             : this._previousLeft + gestureState.dx;
