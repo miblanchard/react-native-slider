@@ -213,10 +213,18 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
     }
 
     componentDidUpdate(prevProps: any) {
-        // Check if the value prop has changed
-        if (this.props.value !== prevProps.value) {
-            // @ts-ignore
-            const newValues = normalizeValue(this.props, this.props.value);
+        const valueChanged = this.props.value !== prevProps.value;
+        const boundsChanged =
+            this.props.minimumValue !== prevProps.minimumValue ||
+            this.props.maximumValue !== prevProps.maximumValue;
+        if (valueChanged || boundsChanged) {
+            // Keep the live drag values when only the bounds change.
+            const inputValue = valueChanged
+                ? this.props.value instanceof Animated.Value
+                    ? this.props.value.__getValue()
+                    : this.props.value
+                : this._getRawValues(this.state.values);
+            const newValues = normalizeValue(this.props, inputValue);
 
             // eslint-disable-next-line react/no-did-update-set-state
             this.setState(
@@ -232,7 +240,8 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
                         const currentValue = this.state.values[i].__getValue();
                         if (
                             value !== currentValue &&
-                            this.props.animateTransitions
+                            this.props.animateTransitions &&
+                            !boundsChanged
                         ) {
                             this._setCurrentValueAnimated(value, i);
                         } else {
@@ -421,9 +430,9 @@ export class Slider extends PureComponent<SliderProps, SliderState> {
 
         if (values.length === 2) {
             if (this._activeThumbIndex === 1) {
-                minValue = rawValues[0] + buffer;
+                minValue = Math.min(maximumValue, rawValues[0] + buffer);
             } else {
-                maxValue = rawValues[1] - buffer;
+                maxValue = Math.max(minimumValue, rawValues[1] - buffer);
             }
         }
 
